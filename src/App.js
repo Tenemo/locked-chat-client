@@ -1,7 +1,13 @@
 import "./App.css";
+import Chat from "./components/chat/Chat.jsx";
+import { DataProvider } from "./context/DataContext";
 
 function App() {
-  return <p>Hello world</p>;
+  return (
+    <DataProvider>
+      <Chat />
+    </DataProvider>
+  );
 }
 
 export default App;

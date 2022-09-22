@@ -1,0 +1,11 @@
+.chatContainer {
+    width: 80vh;
+    height: 80vh;
+    border:2px solid grey;
+    border-radius: 3%;
+    padding:10px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
