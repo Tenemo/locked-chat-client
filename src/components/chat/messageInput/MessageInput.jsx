@@ -20,7 +20,7 @@ const MessageInput = ({ chat, addMessage }) => {
     };
     addMessage([...chat, newMessage]);
   }, [message]);
-  console.log("chat ", chat);
+
   return (
     <form onSubmit={handleSubmit}>
       <input

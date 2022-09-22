@@ -7,7 +7,7 @@ import MessageInput from "./messageInput/MessageInput";
 
 const Chat = ({ users }) => {
   const { chat, addMessage } = useContext(DataContext);
-  //   console.log(chat);
+
   return (
     <div className="chatContainer">
       <MessagesBox messages={chat} />
