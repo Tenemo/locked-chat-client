@@ -15,9 +15,6 @@ export const DataProvider = ({ children }) => {
       nick: "unknown",
     },
   ]);
-  useEffect(() => {
-    addMessage(chat);
-  }, [chat]);
 
   return (
     <DataContext.Provider

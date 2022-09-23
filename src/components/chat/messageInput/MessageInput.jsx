@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
 
 const MessageInput = ({ chat, addMessage }) => {
-  const [message, setMessage] = useState("");
   const [input, setInput] = useState("");
 
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
+  const handleInputChange = ({ target: { value } }) => {
+    setInput(value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setMessage(input);
-    setInput("");
-  };
-  useEffect(() => {
+
     const newMessage = {
-      text: message,
+      text: input,
       nick: "unknown",
       timeStamp: Date.now(),
     };
     addMessage([...chat, newMessage]);
-  }, [message]);
+
+    setInput("");
+  };
 
   return (
     <form onSubmit={handleSubmit}>
