@@ -6,12 +6,12 @@ import { createContext, useState } from "react";
 /**
  * @timeStamp {string} must be in ISO-8601
  */    
-interface IChat {
+export interface IChat {
   readonly text:string;
   readonly timeStamp:number 
   readonly nick:string
 }
-type TChatContextType = {
+export type TChatContextType = {
   chat:IChat[];
   addMessage:React.Dispatch<React.SetStateAction<IChat[]>>;
 }
