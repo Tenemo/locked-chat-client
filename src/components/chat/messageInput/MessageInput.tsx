@@ -8,12 +8,10 @@ const MessageInput = ({ chat, addMessage }:TChatContextType):JSX.Element => {
   
   const [input, setInput] = useState<string>("");
 
-  const handleInputChange = (event:React.FormEvent<HTMLInputElement>) => {
-    setInput(event.currentTarget.value);
+  const handleInputChange = ({currentTarget:{value}}:React.FormEvent<HTMLInputElement>) => {
+    setInput(value);
   };
-  // const handleInputChange = ({ target: { value } }) => {
-  //   setInput(value);
-  // };
+
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

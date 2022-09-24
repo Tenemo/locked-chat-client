@@ -2,7 +2,7 @@ import "./App.css";
 import Chat from "./components/chat/Chat";
 import { DataProvider } from "./context/DataContext";
 
-function App() {
+function App():JSX.Element {
   return (
     <DataProvider>
       <Chat />
