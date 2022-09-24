@@ -5,8 +5,9 @@ import DataContext, { TChatContextType } from "../../context/DataContext";
 import MessagesBox from "./messagesBox/MessagesBox";
 import MessageInput from "./messageInput/MessageInput";
 
-const Chat:React.FC = () => {
+const Chat:React.FC = ():JSX.Element => {
   const { chat, addMessage } = useContext(DataContext) as TChatContextType;
+
 
   return (
     <div className="chatContainer">

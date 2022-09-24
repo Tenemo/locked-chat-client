@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-
+import { formatISO } from "date-fns";
 
 
 
@@ -8,7 +8,7 @@ import { createContext, useState } from "react";
  */    
 export interface IChat {
   readonly text:string;
-  readonly timeStamp:number 
+  readonly timeStamp:string 
   readonly nick:string
 }
 export type TChatContextType = {
@@ -22,20 +22,20 @@ type Props = {
 //temporarily, the intended value will be assigned on the provider.
 const DataContext = createContext<TChatContextType | null>(null);
 
-export const DataProvider:React.FC<Props> = ({ children }) => {
+export const DataProvider:React.FC<Props> = ({ children }):JSX.Element => {
     const [chat, addMessage] = useState<IChat[]>([
     {
       text: "Lorem Ipsum is simply dummy text",
-      timeStamp: Date.now(),
+      timeStamp:formatISO(Date.now()),
       nick: "unknown",
     },
     {
       text: "Lorem Ipsum is simply dummy text",
-      timeStamp: Date.now(),
+      timeStamp:formatISO(Date.now()),
       nick: "unknown",
     },
   ]);
-
+  
   return (
     <DataContext.Provider
       value={{
