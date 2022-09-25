@@ -1,4 +1,4 @@
-import "./chat.css";
+import "./chat.scss";
 import { useContext } from "react";
 import DataContext, { TChatContextType } from "../../context/DataContext";
 
