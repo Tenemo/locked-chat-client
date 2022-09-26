@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { formatISO } from "date-fns";
 import { useDispatch } from "react-redux";
-import { addMessageXD } from "../../../state/features/messages/messageSlice";
+import { addMessage } from "../../../state/features/messages/messageSlice";
 import { Imessage } from "../../../state/types";
 
 export type TMessageInputType = {
@@ -33,7 +33,7 @@ const MessageInput = ({ chat }:TMessageInputType):JSX.Element => {
     
     
     setInput("");
-    dispatch(addMessageXD(newMessage))
+    dispatch(addMessage(newMessage))
   };
   
   return (
