@@ -1,18 +1,21 @@
-import "./chat.css";
-import { useContext } from "react";
-import DataContext, { TChatContextType } from "../../context/DataContext";
-
+import "./chat.scss";
 import MessagesBox from "./messagesBox/MessagesBox";
 import MessageInput from "./messageInput/MessageInput";
+import {  useSelector } from "react-redux";
+import { RootState } from "../../state/store";
+
+
 
 const Chat:React.FC = ():JSX.Element => {
-  const { chat, addMessage } = useContext(DataContext) as TChatContextType;
+  
+  const chat = useSelector((state:RootState)=>state.messages.chat)
+
 
 
   return (
     <div className="chatContainer">
       <MessagesBox messages={chat} />
-      <MessageInput chat={chat} addMessage={addMessage} />
+      <MessageInput chat={chat}  />
     </div>
   );
 };

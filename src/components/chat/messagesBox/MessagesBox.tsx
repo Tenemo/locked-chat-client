@@ -1,7 +1,8 @@
-import { IChat } from "../../../context/DataContext";
+import { Imessage } from "../../../state/types";
+
 
 type TChatProps = {
-  messages:IChat[]
+  messages:Imessage[]
 }
 
 const MessagesBox = ({ messages }:TChatProps):JSX.Element => {

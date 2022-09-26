@@ -1,12 +1,15 @@
 import "./App.css";
 import Chat from "./components/chat/Chat";
-import { DataProvider } from "./context/DataContext";
+import { store} from './state/store'
+import {Provider} from 'react-redux'
 
 function App():JSX.Element {
   return (
-    <DataProvider>
-      <Chat />
-    </DataProvider>
+    
+      <Provider store = {store}>
+        <Chat />
+      </Provider>
+    
   );
 }
 
