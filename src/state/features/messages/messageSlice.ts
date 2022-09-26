@@ -9,7 +9,7 @@ const initialState: { chat: Imessage[] } = {
     {
       text: "test",
       timeStamp: formatISO(Date.now()),
-      nick: "admin",
+      author: "admin",
     },
   ],
 };

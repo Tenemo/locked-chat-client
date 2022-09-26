@@ -1,11 +1,11 @@
 import { Imessage } from "../../../state/types";
 
 
-type TChatProps = {
+type Props = {
   messages:Imessage[]
 }
 
-const MessagesBox = ({ messages }:TChatProps):JSX.Element => {
+const MessagesBox = ({ messages }:Props):JSX.Element => {
   const messagesMarkup = messages.map((message, index) => (
     <div key={index}>
       {message.text}

@@ -27,7 +27,7 @@ const MessageInput = ({ chat }:TMessageInputType):JSX.Element => {
     
     const newMessage:Imessage = {
       text: input,
-      nick: "unknown",
+      author: "unknown",
       timeStamp: formatISO(Date.now()),
     };
     
@@ -44,6 +44,7 @@ const MessageInput = ({ chat }:TMessageInputType):JSX.Element => {
         name="inputValue"
         value={input}
         onChange={handleInputChange}
+        autoComplete="off"
       ></input>
       <input type="submit" value="Submit"></input>
     </form>

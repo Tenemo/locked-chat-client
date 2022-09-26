@@ -6,7 +6,7 @@ import { RootState } from "../../state/store";
 
 
 
-const Chat:React.FC = ():JSX.Element => {
+const Chat = ():JSX.Element => {
   
   const chat = useSelector((state:RootState)=>state.messages.chat)
 
