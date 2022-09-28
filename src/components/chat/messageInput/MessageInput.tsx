@@ -9,8 +9,8 @@ const MessageInput = (): JSX.Element => {
     const [input, setInput] = useState<string>('');
 
     const handleInputChange = ({
-        currentTarget: { value },
-    }: React.FormEvent<HTMLInputElement>): void => {
+        target: { value },
+    }: React.ChangeEvent<HTMLInputElement>): void => {
         setInput(value);
     };
 
