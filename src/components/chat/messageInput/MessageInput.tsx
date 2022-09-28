@@ -1,53 +1,47 @@
-import { useState } from "react";
-import { formatISO } from "date-fns";
-import { useDispatch } from "react-redux";
-import { addMessage } from "../../../state/features/messages/messageSlice";
-import { Imessage } from "../../../state/types";
+import { formatISO } from 'date-fns';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-export type TMessageInputType = {
-  chat:Imessage[];
-  
-}
+import { addMessage } from '../../../state/features/messages/messageSlice';
+import { Message } from '../../../state/types';
 
-const MessageInput = ({ chat }:TMessageInputType):JSX.Element => {
-  
-  const [input, setInput] = useState<string>("");
+const MessageInput = (): JSX.Element => {
+    const [input, setInput] = useState<string>('');
 
-  const handleInputChange = ({currentTarget:{value}}:React.FormEvent<HTMLInputElement>) => {
-    setInput(value);
-  };
-
-  
-  
-  const dispatch = useDispatch()
-
-  
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    
-    const newMessage:Imessage = {
-      text: input,
-      author: "unknown",
-      timeStamp: formatISO(Date.now()),
+    const handleInputChange = ({
+        currentTarget: { value },
+    }: React.FormEvent<HTMLInputElement>): void => {
+        setInput(value);
     };
-    
-    
-    setInput("");
-    dispatch(addMessage(newMessage))
-  };
-  
-  return (
-    <form onSubmit={handleSubmit}>
-    {/* <form> */}
-      <input
-        type="text"
-        name="inputValue"
-        value={input}
-        onChange={handleInputChange}
-        autoComplete="off"
-      ></input>
-      <input type="submit" value="Submit"></input>
-    </form>
-  );
+
+    const dispatch = useDispatch();
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+        event.preventDefault();
+
+        const newMessage: Message = {
+            content: input,
+            author: 'unknown',
+            timestamp: formatISO(Date.now()),
+            id: input,
+        };
+
+        setInput('');
+        dispatch(addMessage(newMessage));
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            {/* <form> */}
+            <input
+                autoComplete="off"
+                name="inputValue"
+                onChange={handleInputChange}
+                type="content"
+                value={input}
+            />
+            <input type="submit" value="Submit" />
+        </form>
+    );
 };
 export default MessageInput;

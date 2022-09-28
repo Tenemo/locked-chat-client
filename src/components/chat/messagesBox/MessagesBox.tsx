@@ -1,17 +1,16 @@
-import { Imessage } from "../../../state/types";
-
+import { Message } from '../../../state/types';
 
 type Props = {
-  messages:Imessage[]
-}
+    messages: Message[];
+};
 
-const MessagesBox = ({ messages }:Props):JSX.Element => {
-  const messagesMarkup = messages.map((message, index) => (
-    <div key={index}>
-      {message.text}
-      {message.timeStamp}
-    </div>
-  ));
-  return <div>{messagesMarkup}</div>;
+const MessagesBox = ({ messages }: Props): JSX.Element => {
+    const messagesMarkup = messages.map((message) => (
+        <div key={message.id}>
+            {message.content}
+            {message.timestamp}
+        </div>
+    ));
+    return <div>{messagesMarkup}</div>;
 };
 export default MessagesBox;

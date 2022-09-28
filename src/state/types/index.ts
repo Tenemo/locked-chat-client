@@ -1,5 +1,6 @@
-export interface Imessage {
-    readonly text: string;
-    readonly timeStamp: string;
+export interface Message {
+    readonly content: string;
+    readonly timestamp: string;
     readonly author: string;
-  }
+    readonly id: string;
+}
