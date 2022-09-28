@@ -32,7 +32,6 @@ const MessageInput = (): JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit}>
-            {/* <form> */}
             <input
                 autoComplete="off"
                 name="inputValue"
