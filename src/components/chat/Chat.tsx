@@ -1,10 +1,10 @@
 import './chat.scss';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '../../state/store';
-
 import MessageInput from './messageInput/MessageInput';
 import MessagesBox from './messagesBox/MessagesBox';
+
+import { RootState } from 'state/store';
 
 const Chat = (): JSX.Element => {
     const chat = useSelector((state: RootState) => state.messages.chat);

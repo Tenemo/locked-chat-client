@@ -1,4 +1,4 @@
-import { Message } from '../../../state/types';
+import { Message } from 'state/features/messages/messagesTypes';
 
 type Props = {
     messages: Message[];

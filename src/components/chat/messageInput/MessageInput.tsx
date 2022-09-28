@@ -2,8 +2,8 @@ import { formatISO } from 'date-fns';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addMessage } from '../../../state/features/messages/messageSlice';
-import { Message } from '../../../state/types';
+import { addMessage } from 'state/features/messages/messagesSlice';
+import { Message } from 'state/features/messages/messagesTypes';
 
 const MessageInput = (): JSX.Element => {
     const [input, setInput] = useState<string>('');

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { formatISO } from 'date-fns';
 
-import { Message } from '../../types';
+import { Message } from './messagesTypes';
 
 const initialState: { chat: Message[] } = {
     chat: [
@@ -15,7 +15,7 @@ const initialState: { chat: Message[] } = {
     ],
 };
 
-export const messageSlice = createSlice({
+export const messagesSlice = createSlice({
     name: 'messages',
     initialState,
     reducers: {
@@ -25,5 +25,5 @@ export const messageSlice = createSlice({
     },
 });
 
-export const { addMessage } = messageSlice.actions;
-export default messageSlice.reducer;
+export const { addMessage } = messagesSlice.actions;
+export default messagesSlice.reducer;
