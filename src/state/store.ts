@@ -39,7 +39,7 @@ const messagesMiddleware: Middleware<unknown, RootState> =
             socket.emit(MessagesEvents.NEW_MESSAGE, action.payload.content);
         }
 
-        next(action);
+        return next(action);
     };
 export const store = configureStore({
     reducer: rootReducer,
