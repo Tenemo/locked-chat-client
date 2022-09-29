@@ -1,9 +1,7 @@
-import { formatISO } from 'date-fns';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addMessage } from 'state/features/messages/messagesSlice';
-import { Message } from 'state/features/messages/messagesTypes';
+import { submitMessage } from 'state/features/messages/messagesSlice';
 
 const MessageInput = (): JSX.Element => {
     const [input, setInput] = useState<string>('');
@@ -19,15 +17,8 @@ const MessageInput = (): JSX.Element => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        const newMessage: Message = {
-            content: input,
-            author: 'unknown',
-            timestamp: formatISO(Date.now()),
-            id: input,
-        };
-
         setInput('');
-        dispatch(addMessage(newMessage));
+        dispatch(submitMessage({ content: input }));
     };
 
     return (

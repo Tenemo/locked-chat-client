@@ -1,29 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { formatISO } from 'date-fns';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Message } from './messagesTypes';
+import { Message, MessagesState } from './messagesTypes';
 
-const initialState: { chat: Message[] } = {
-    chat: [
-        {
-            content: 'test',
-            timestamp: formatISO(Date.now()),
-            author: 'admin',
-            id: '1515',
-        },
-    ],
+const initialState: MessagesState = {
+    isEstablishingConnection: false,
+    isConnected: false,
+    messages: [],
 };
 
 export const messagesSlice = createSlice({
     name: 'messages',
     initialState,
     reducers: {
-        addMessage: (state, action: PayloadAction<Message>) => {
-            state.chat = [...state.chat, action.payload];
+        startConnecting: (state) => {
+            state.isEstablishingConnection = true;
+        },
+        connectionEstablished: (state) => {
+            state.isConnected = true;
+            state.isEstablishingConnection = true;
+        },
+        receiveMessage: (
+            state,
+            action: PayloadAction<{
+                message: Message;
+            }>,
+        ) => {
+            state.messages.push(action.payload.message);
+        },
+        submitMessage: (
+            _state,
+            action: PayloadAction<{
+                content: string;
+            }>,
+        ) => {
+            console.log({ content: action.payload.content });
         },
     },
 });
 
-export const { addMessage } = messagesSlice.actions;
+export const {
+    startConnecting,
+    connectionEstablished,
+    receiveMessage,
+    submitMessage,
+} = messagesSlice.actions;
 export default messagesSlice.reducer;
