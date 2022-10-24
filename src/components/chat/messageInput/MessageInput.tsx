@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { submitMessage } from 'state/features/messages/messagesSlice';
+import { useAppDispatch } from 'state/hooks';
 
 const MessageInput = (): JSX.Element => {
-    const [input, setInput] = useState<string>('');
+    const [inputValue, setInputValue] = useState<string>('');
 
     const handleInputChange = ({
         target: { value },
     }: React.ChangeEvent<HTMLInputElement>): void => {
-        setInput(value);
+        setInputValue(value);
     };
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
+    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    //     event.preventDefault();
+
+    //     setInputValue('');
+    //     dispatch(submitMessage({ content: inputValue }));
+    // };
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        setInput('');
-        dispatch(submitMessage({ content: input }));
+        dispatch(submitMessage({ content: inputValue }));
+        setInputValue('');
     };
 
     return (
@@ -28,7 +34,7 @@ const MessageInput = (): JSX.Element => {
                 name="inputValue"
                 onChange={handleInputChange}
                 type="content"
-                value={input}
+                value={inputValue}
             />
             <input type="submit" value="Submit" />
         </form>

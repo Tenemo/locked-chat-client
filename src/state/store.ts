@@ -1,35 +1,41 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
-import { io, Socket } from 'socket.io-client';
+// import { io, Socket } from 'socket.io-client';
 
 import messagesReducer, {
-    startConnecting,
-    connectionEstablished,
+    // startConnecting,
+    // connectionEstablished,
     receiveMessage,
     submitMessage,
 } from './features/messages/messagesSlice';
+import socketReducer, {
+    startConnecting,
+    connectionEstablished,
+} from './features/socket/socketSlice';
+import { socket } from './service';
 
 import { Message, MessagesEvents } from 'state/features/messages/messagesTypes';
 
 const rootReducer = combineReducers({
     messages: messagesReducer,
+    socket: socketReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
-let socket: Socket;
+
 const messagesMiddleware: Middleware<unknown, RootState> =
     (messagesStore) => (next) => (action: Action) => {
-        console.log({ action });
+        console.log('store.ts store ', messagesStore.getState());
+        console.log('action ', action);
         const isConnectionEstablished =
-            socket && messagesStore.getState().messages.isConnected;
+            socket && messagesStore.getState().socket.isConnected;
 
         if (startConnecting.match(action)) {
-            socket = io('localhost:4000', {});
-
             socket.on('connect', () => {
                 messagesStore.dispatch(connectionEstablished());
-                // socket.emit(MessagesEvents.RequestAllMessages);
             });
-
+            socket.on(MessagesEvents.SET_USERNAME_CORRECT, (users) => {
+                console.log(users);
+            });
             socket.on(MessagesEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
                 messagesStore.dispatch(receiveMessage({ message }));
             });

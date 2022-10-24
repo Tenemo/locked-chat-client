@@ -12,13 +12,15 @@ export const messagesSlice = createSlice({
     name: 'messages',
     initialState,
     reducers: {
-        startConnecting: (state) => {
-            state.isEstablishingConnection = true;
-        },
-        connectionEstablished: (state) => {
-            state.isConnected = true;
-            state.isEstablishingConnection = true;
-        },
+        // do wyjebania
+        // startConnecting: (state) => {
+        //     state.isEstablishingConnection = true;
+        // },
+        // do wyjebania
+        // connectionEstablished: (state) => {
+        //     state.isConnected = true;
+        //     state.isEstablishingConnection = true;
+        // },
         receiveMessage: (
             state,
             action: PayloadAction<{
@@ -33,14 +35,17 @@ export const messagesSlice = createSlice({
                 content: string;
             }>,
         ) => {
+            // wyjeb tego console.loga
             console.log({ content: action.payload.content });
         },
     },
 });
 
 export const {
-    startConnecting,
-    connectionEstablished,
+    // do wyjebania
+    // startConnecting,
+    // do wyjebania
+    // connectionEstablished,
     receiveMessage,
     submitMessage,
 } = messagesSlice.actions;

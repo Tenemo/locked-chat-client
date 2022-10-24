@@ -7,9 +7,12 @@ export type Message = {
 export enum MessagesEvents {
     NEW_MESSAGE = 'new-message',
     NEW_MESSAGE_UPDATE = 'new-message-update',
+    SET_USERNAME = 'set-username',
+    SET_USERNAME_FAILED = 'set-username-failed',
+    SET_USERNAME_CORRECT = 'set-username-correct',
 }
 export type MessagesState = {
     messages: Message[];
     isEstablishingConnection: boolean;
-    isConnected: boolean;
+    isConnected: boolean; // wyjebac
 };
