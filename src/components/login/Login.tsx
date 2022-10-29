@@ -18,7 +18,7 @@ const Login = (): JSX.Element => {
 
     const handleSubmitClick = (): void => {
         socket.emit(MessagesEvents.SET_USERNAME, value);
-        navigate('chat', { replace: true });
+        navigate('/chat');
         // navigate(0);
     };
     return (

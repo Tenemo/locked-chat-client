@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
+import logger from 'redux-logger';
 // import { io, Socket } from 'socket.io-client';
 
 import messagesReducer, {
@@ -24,8 +25,6 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 const messagesMiddleware: Middleware<unknown, RootState> =
     (messagesStore) => (next) => (action: Action) => {
-        console.log('store.ts store ', messagesStore.getState());
-        console.log('action ', action);
         const isConnectionEstablished =
             socket && messagesStore.getState().socket.isConnected;
 
@@ -50,6 +49,6 @@ const messagesMiddleware: Middleware<unknown, RootState> =
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([messagesMiddleware]),
+        getDefaultMiddleware().concat([messagesMiddleware, logger]),
 });
 export type AppDispatch = typeof store.dispatch;
