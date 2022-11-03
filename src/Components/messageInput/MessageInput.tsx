@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { submitMessage } from 'state/features/messages/messagesSlice';
+import { newMessage } from 'state/features/chat/chatSlice';
 import { useAppDispatch } from 'state/hooks';
 
 const MessageInput = (): JSX.Element => {
@@ -14,23 +14,19 @@ const MessageInput = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
 
-    // const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    //     event.preventDefault();
-
-    //     setInputValue('');
-    //     dispatch(submitMessage({ content: inputValue }));
-    // };
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        dispatch(submitMessage({ content: inputValue }));
+        dispatch(newMessage({ content: inputValue }));
         setInputValue('');
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={handleSubmit}>
             <input
                 autoComplete="off"
+                // eslint-disable-next-line jsx-a11y/no-autofocus
+                autoFocus
                 name="inputValue"
                 onChange={handleInputChange}
                 type="content"

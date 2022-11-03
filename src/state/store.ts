@@ -1,47 +1,71 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
 import logger from 'redux-logger';
-// import { io, Socket } from 'socket.io-client';
 
-import messagesReducer, {
-    // startConnecting,
-    // connectionEstablished,
-    receiveMessage,
-    submitMessage,
-} from './features/messages/messagesSlice';
+import { Message, ChatState } from '../types/chatType';
+
+import chatReducer, {
+    newMessage,
+    newMessageUpdate,
+    setUsernameSuccess,
+} from './features/chat/chatSlice';
 import socketReducer, {
     startConnecting,
     connectionEstablished,
 } from './features/socket/socketSlice';
+import userReducer, {
+    setUsername,
+    setIsLogin,
+} from './features/user/userSlice';
 import { socket } from './service';
 
-import { Message, MessagesEvents } from 'state/features/messages/messagesTypes';
+import { ChatEvents } from 'enums/ChatEvents';
 
 const rootReducer = combineReducers({
-    messages: messagesReducer,
     socket: socketReducer,
+    user: userReducer,
+    chat: chatReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
 const messagesMiddleware: Middleware<unknown, RootState> =
-    (messagesStore) => (next) => (action: Action) => {
+    (chatStore) => (next) => (action: Action) => {
         const isConnectionEstablished =
-            socket && messagesStore.getState().socket.isConnected;
-
+            socket && chatStore.getState().socket.isConnected;
         if (startConnecting.match(action)) {
             socket.on('connect', () => {
-                messagesStore.dispatch(connectionEstablished());
+                chatStore.dispatch(connectionEstablished());
             });
-            socket.on(MessagesEvents.SET_USERNAME_CORRECT, (users) => {
-                console.log(users);
+
+            socket.on(ChatEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
+                chatStore.dispatch(newMessageUpdate({ message }));
             });
-            socket.on(MessagesEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
-                messagesStore.dispatch(receiveMessage({ message }));
+            socket.on(ChatEvents.SET_USERNAME_FAILURE, () => {
+                socket.disconnect();
             });
+            socket.on(ChatEvents.NEW_MESSAGE_USERNAME_NOT_REGISTERED, () => {
+                socket.disconnect();
+            });
+            socket.on(
+                ChatEvents.SET_USERNAME_SUCCESS,
+                ({ messages, usernames }: ChatState) => {
+                    chatStore.dispatch(
+                        setIsLogin({
+                            isLogin: true,
+                        }),
+                    );
+                    chatStore.dispatch(
+                        setUsernameSuccess({ messages, usernames }),
+                    );
+                },
+            );
         }
 
-        if (submitMessage.match(action) && isConnectionEstablished) {
-            socket.emit(MessagesEvents.NEW_MESSAGE, action.payload.content);
+        if (newMessage.match(action) && isConnectionEstablished) {
+            socket.emit(ChatEvents.NEW_MESSAGE, action.payload.content);
+        }
+        if (setUsername.match(action)) {
+            socket.emit(ChatEvents.SET_USERNAME, action.payload.username);
         }
 
         return next(action);

@@ -1,14 +1,15 @@
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './login.scss';
-import { socket } from '../../state/service';
 
-import { MessagesEvents } from 'state/features/messages/messagesTypes';
+import { setUsername } from 'state/features/user/userSlice';
+import { useAppDispatch } from 'state/hooks';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const handleInputChange = ({
         target: { value: newValue },
@@ -17,16 +18,31 @@ const Login = (): JSX.Element => {
     };
 
     const handleSubmitClick = (): void => {
-        socket.emit(MessagesEvents.SET_USERNAME, value);
+        dispatch(
+            setUsername({
+                username: value,
+            }),
+        );
         navigate('/chat');
         // navigate(0);
     };
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        handleSubmitClick();
+    };
     return (
         <div className="login-container">
-            <form className="form-content">
+            <form
+                autoComplete="off"
+                className="form-content"
+                onSubmit={handleSubmit}
+            >
                 <label htmlFor="username">
                     user name
                     <input
+                        autoComplete="new-username"
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
+                        autoFocus
                         id="username"
                         name="username"
                         onChange={handleInputChange}

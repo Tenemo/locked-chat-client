@@ -1,4 +1,4 @@
-import { Message } from 'state/features/messages/messagesTypes';
+import { Message } from '../../types/chatType';
 
 type Props = {
     messages: Message[];
