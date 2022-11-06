@@ -37,14 +37,6 @@ export const chatSlice = createSlice({
         ) => {
             state.messages = action.payload.messages;
         },
-        // setUsers: (
-        //     state,
-        //     action: PayloadAction<{
-        //         users: Users;
-        //     }>,
-        // ) => {
-        //     state.usernames.push(action.payload.users);
-        // },
         setUsernameSuccess: (
             state,
             action: PayloadAction<{
