@@ -1,9 +1,10 @@
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import styles from './Login.module.scss';
+
 import { setUsername } from 'state/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
-import './Login.scss';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
@@ -36,7 +37,7 @@ const Login = (): JSX.Element => {
         handleSubmitClick();
     };
     return (
-        <div className="login">
+        <div className={styles.login}>
             {isUsernameFailure === true ? (
                 <div>
                     <p>{username} already exist</p>

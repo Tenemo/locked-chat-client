@@ -63,7 +63,7 @@
         "prettier-eslint": "^15.0.1",
         "prettier-stylelint": "^0.4.2",
         "redux-logger": "^3.0.6",
-        "sass": "^1.55.0",
+        "sass": "^1.56.0",
         "stylelint": "^14.12.1",
         "stylelint-config-prettier": "^9.0.3",
         "stylelint-config-recommended": "^9.0.0",

@@ -1,0 +1,28 @@
+.messageInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+    form {
+        width: 90%;
+        flex: 1;
+    }
+    input {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 2%;
+        outline: none;
+        padding: 1rem 2rem;
+        height: auto;
+        &::placeholder {
+            color: gray;
+        }
+    }
+}
+.hiddenSubmit {
+    display: none;
+}

@@ -1,12 +1,13 @@
+import styles from './Chat.module.scss';
+
 import MessageInput from 'Components/MessageInput/MessageInput';
 import MessagesBox from 'Components/MessagesBox/MessagesBox';
 import UsersBox from 'Components/UsersBox/UsersBox';
-import './Chat.scss';
 
 const Chat = (): JSX.Element => {
     return (
-        <div className="chat">
-            <div className="chatWrap">
+        <div className={styles.chat}>
+            <div className={styles.chatWrap}>
                 <MessagesBox />
                 <MessageInput />
             </div>

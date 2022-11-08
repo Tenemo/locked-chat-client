@@ -1,6 +1,7 @@
+import styles from './MessageBox.module.scss';
+
 import { MemoizedMessageWrap } from 'Components/MessageWrap/MessageWrap';
 import { useAppSelector } from 'state/hooks';
-import './MessagesBox.scss';
 
 const MessagesBox = (): JSX.Element => {
     const messages = useAppSelector((state) => state.chat.messages);
@@ -19,7 +20,7 @@ const MessagesBox = (): JSX.Element => {
         return { ...message, isOwnUsername: message.author === isOwnUsername };
     });
     return (
-        <div className="messageBox">
+        <div className={styles.messageBox}>
             {newMessages.map((message) => (
                 <MemoizedMessageWrap key={message.id} {...message} />
             ))}

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
+import styles from './MessageInput.module.scss';
+
 import { newMessage } from 'state/features/chat/chatSlice';
 import { useAppDispatch } from 'state/hooks';
-import './MessageInput.scss';
 
 const MessageInput = (): JSX.Element => {
     const [inputValue, setInputValue] = useState<string>('');
@@ -23,7 +24,7 @@ const MessageInput = (): JSX.Element => {
     };
 
     return (
-        <div className="messageInput">
+        <div className={styles.messageInput}>
             <form autoComplete="off" onSubmit={handleSubmit}>
                 <input
                     // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -36,7 +37,11 @@ const MessageInput = (): JSX.Element => {
                     // eslint-disable-next-line react/jsx-sort-props
                     autoComplete="off"
                 />
-                <input className="hiddenSubmit" type="submit" value="Submit" />
+                <input
+                    className={styles.hiddenSubmit}
+                    type="submit"
+                    value="Submit"
+                />
             </form>
         </div>
     );

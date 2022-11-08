@@ -5,7 +5,7 @@ import Chat from 'Pages/Chat/Chat';
 import Login from 'Pages/Login/Login';
 import { startConnecting } from 'state/features/socket/socketSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
-import './App.scss';
+import './App.module.scss';
 
 const NotFound = (): JSX.Element => <>nic tu nie ma</>;
 // ale bedzie

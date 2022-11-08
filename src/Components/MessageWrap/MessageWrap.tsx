@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './MessageWrap.scss';
+import styles from './MessageWrap.module.scss';
 
 type Props = {
     content: string;
@@ -20,9 +20,13 @@ const MessageWrap = ({
     const time = `${hours}:${minutes}`;
 
     return (
-        <div className={`messageWrap ${isOwnUsername ? 'js-fe' : 'js-fs'}`}>
-            <div className="author">{author}</div>
-            <div className="time">{time}</div>
+        <div
+            className={`${styles.messageWrap} ${
+                isOwnUsername ? styles.jsFe : styles.jsFs
+            }`}
+        >
+            <div className={styles.author}>{author}</div>
+            <div className={styles.time}>{time}</div>
             <p>{content}</p>
         </div>
     );

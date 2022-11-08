@@ -1,5 +1,6 @@
 import React from 'react';
-import './Username.scss';
+
+import styles from './Username.module.scss';
 
 type Props = {
     name: string;
@@ -7,7 +8,7 @@ type Props = {
 };
 const Username = ({ name, isOwnUsername = false }: Props): JSX.Element => {
     return (
-        <div className={`username ${isOwnUsername ? 'active' : ''}`}>
+        <div className={isOwnUsername ? styles.active : ''}>
             <h2>{name}</h2>
         </div>
     );
