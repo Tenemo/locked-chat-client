@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Chat from './Pages/chat/Chat';
-
-import Login from 'Pages/login/Login';
+import Chat from 'Pages/Chat/Chat';
+import Login from 'Pages/Login/Login';
 import { startConnecting } from 'state/features/socket/socketSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
+import './App.scss';
 
 const NotFound = (): JSX.Element => <>nic tu nie ma</>;
+// ale bedzie
 
 const App = (): JSX.Element => {
     const dispatch = useAppDispatch();

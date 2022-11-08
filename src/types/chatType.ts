@@ -5,6 +5,6 @@ export type ChatState = {
 export type Message = {
     readonly content: string;
     readonly timestamp: string;
-    readonly author: string;
+    author: string;
     readonly id: string;
 };

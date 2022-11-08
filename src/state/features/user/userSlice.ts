@@ -4,8 +4,8 @@ import { UserState } from '../../../types/userType';
 
 const initialState: UserState = {
     username: '',
-    isLogin: false,
-    error: {},
+    isLoggedIn: false,
+    error: { isUsernameFailure: null },
 };
 
 export const userSlice = createSlice({
@@ -19,17 +19,33 @@ export const userSlice = createSlice({
             }>,
         ) => {
             state.username = action.payload.username;
+            state.error = {
+                ...state.error,
+                isUsernameFailure: null,
+            };
         },
         setIsLogin: (
             state,
             action: PayloadAction<{
                 isLogin: boolean;
+                isUsernameFailure: boolean;
             }>,
         ) => {
-            state.isLogin = action.payload.isLogin;
+            state.isLoggedIn = action.payload.isLogin;
+            state.error = {
+                ...state.error,
+                isUsernameFailure: action.payload.isUsernameFailure,
+            };
+        },
+        setUsernameFailure: (state) => {
+            state.error = {
+                ...state.error,
+                isUsernameFailure: true,
+            };
         },
     },
 });
 
-export const { setUsername, setIsLogin } = userSlice.actions;
+export const { setUsername, setIsLogin, setUsernameFailure } =
+    userSlice.actions;
 export default userSlice.reducer;

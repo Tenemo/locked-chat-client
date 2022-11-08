@@ -1,0 +1,19 @@
+@import "utilities/variables.scss";
+
+.chat {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.chatWrap {
+    background-color: white;
+    position: relative;
+    width: $size;
+    height: 80vh;
+    overflow: auto;
+    overflow-y: hidden;
+    padding: 5rem 0 10rem 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+}

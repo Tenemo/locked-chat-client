@@ -1,13 +1,14 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './login.scss';
-
 import { setUsername } from 'state/features/user/userSlice';
-import { useAppDispatch } from 'state/hooks';
+import { useAppDispatch, useAppSelector } from 'state/hooks';
+import './Login.scss';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
+    const { isUsernameFailure } = useAppSelector((state) => state.user.error);
+    const { username } = useAppSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -23,22 +24,33 @@ const Login = (): JSX.Element => {
                 username: value,
             }),
         );
-        navigate('/chat');
-        // navigate(0);
     };
+    useEffect(() => {
+        if (isUsernameFailure === false) {
+            navigate('/chat');
+        }
+    }, [isUsernameFailure, dispatch, navigate]);
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         handleSubmitClick();
     };
     return (
-        <div className="login-container">
+        <div className="login">
+            {isUsernameFailure === true ? (
+                <div>
+                    <p>{username} already exist</p>
+                </div>
+            ) : (
+                ''
+            )}
             <form
                 autoComplete="off"
                 className="form-content"
                 onSubmit={handleSubmit}
             >
                 <label htmlFor="username">
-                    user name
+                    username
                     <input
                         autoComplete="new-username"
                         // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -46,7 +58,7 @@ const Login = (): JSX.Element => {
                         id="username"
                         name="username"
                         onChange={handleInputChange}
-                        placeholder="Enter your user name"
+                        placeholder="Enter your username"
                         type="text"
                         value={value}
                     />
@@ -55,7 +67,6 @@ const Login = (): JSX.Element => {
                 <button onClick={handleSubmitClick} type="button">
                     Submit
                 </button>
-                {/* <Link to="/chat">Link </Link> */}
             </form>
         </div>
     );

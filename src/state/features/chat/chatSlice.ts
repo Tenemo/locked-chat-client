@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ChatState, Message } from '../../../types/chatType';
-// import { Users } from '../../../types/usersType';
+import { ChatState, Message } from 'types/chatType';
 
 const initialState: ChatState = {
     messages: [],
@@ -29,14 +28,6 @@ export const chatSlice = createSlice({
         ) => {
             state.messages.push(action.payload.message);
         },
-        loadMessages: (
-            state,
-            action: PayloadAction<{
-                messages: Message[];
-            }>,
-        ) => {
-            state.messages = action.payload.messages;
-        },
         setUsernameSuccess: (
             state,
             action: PayloadAction<{
@@ -47,14 +38,30 @@ export const chatSlice = createSlice({
             state.messages = action.payload.messages;
             state.usernames = action.payload.usernames;
         },
+        updateUsers: (
+            state,
+            action: PayloadAction<{
+                users: string[];
+            }>,
+        ) => {
+            state.usernames = [...action.payload.users];
+        },
+        userDisconnected: (
+            state,
+            action: PayloadAction<{
+                users: string[];
+            }>,
+        ) => {
+            state.usernames = [...action.payload.users];
+        },
     },
 });
 
 export const {
     newMessageUpdate,
-    loadMessages,
     newMessage,
-    // setUsers,
+    updateUsers,
+    userDisconnected,
     setUsernameSuccess,
 } = chatSlice.actions;
 export default chatSlice.reducer;

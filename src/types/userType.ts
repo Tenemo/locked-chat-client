@@ -1,5 +1,8 @@
 export type UserState = {
     username: string;
-    isLogin: boolean;
-    error: object;
+    isLoggedIn: boolean;
+    error: Error;
+};
+type Error = {
+    isUsernameFailure: boolean | null;
 };

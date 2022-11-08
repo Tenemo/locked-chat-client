@@ -2,12 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
 import logger from 'redux-logger';
 
-import { Message, ChatState } from '../types/chatType';
-
 import chatReducer, {
     newMessage,
     newMessageUpdate,
     setUsernameSuccess,
+    updateUsers,
+    userDisconnected,
 } from './features/chat/chatSlice';
 import socketReducer, {
     startConnecting,
@@ -16,10 +16,12 @@ import socketReducer, {
 import userReducer, {
     setUsername,
     setIsLogin,
+    setUsernameFailure,
 } from './features/user/userSlice';
 import { socket } from './service';
 
 import { ChatEvents } from 'enums/ChatEvents';
+import { Message, ChatState } from 'types/chatType';
 
 const rootReducer = combineReducers({
     socket: socketReducer,
@@ -41,7 +43,7 @@ const messagesMiddleware: Middleware<unknown, RootState> =
                 chatStore.dispatch(newMessageUpdate({ message }));
             });
             socket.on(ChatEvents.SET_USERNAME_FAILURE, () => {
-                socket.disconnect();
+                chatStore.dispatch(setUsernameFailure());
             });
             socket.on(ChatEvents.NEW_MESSAGE_USERNAME_NOT_REGISTERED, () => {
                 socket.disconnect();
@@ -52,6 +54,7 @@ const messagesMiddleware: Middleware<unknown, RootState> =
                     chatStore.dispatch(
                         setIsLogin({
                             isLogin: true,
+                            isUsernameFailure: false,
                         }),
                     );
                     chatStore.dispatch(
@@ -59,6 +62,12 @@ const messagesMiddleware: Middleware<unknown, RootState> =
                     );
                 },
             );
+            socket.on(ChatEvents.UPDATE_USERS, (users: string[]) => {
+                chatStore.dispatch(updateUsers({ users }));
+            });
+            socket.on(ChatEvents.USER_DISCONNECTED, (users: string[]) => {
+                chatStore.dispatch(userDisconnected({ users }));
+            });
         }
 
         if (newMessage.match(action) && isConnectionEstablished) {
