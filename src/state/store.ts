@@ -1,49 +1,87 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
-import { io, Socket } from 'socket.io-client';
+import logger from 'redux-logger';
 
-import messagesReducer, {
+import chatReducer, {
+    newMessage,
+    newMessageUpdate,
+    setUsernameSuccess,
+    updateUsers,
+    userDisconnected,
+} from './features/chat/chatSlice';
+import socketReducer, {
     startConnecting,
     connectionEstablished,
-    receiveMessage,
-    submitMessage,
-} from './features/messages/messagesSlice';
+} from './features/socket/socketSlice';
+import userReducer, {
+    setUsername,
+    setIsLogin,
+    setUsernameFailure,
+} from './features/user/userSlice';
+import { socket } from './service';
 
-import { Message, MessagesEvents } from 'state/features/messages/messagesTypes';
+import { ChatEvents } from 'enums/ChatEvents';
+import { Message, ChatState } from 'types/chatType';
 
 const rootReducer = combineReducers({
-    messages: messagesReducer,
+    socket: socketReducer,
+    user: userReducer,
+    chat: chatReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
-let socket: Socket;
+
 const messagesMiddleware: Middleware<unknown, RootState> =
-    (messagesStore) => (next) => (action: Action) => {
-        console.log({ action });
+    (chatStore) => (next) => (action: Action) => {
         const isConnectionEstablished =
-            socket && messagesStore.getState().messages.isConnected;
-
+            socket && chatStore.getState().socket.isConnected;
         if (startConnecting.match(action)) {
-            socket = io('localhost:4000', {});
-
             socket.on('connect', () => {
-                messagesStore.dispatch(connectionEstablished());
-                // socket.emit(MessagesEvents.RequestAllMessages);
+                chatStore.dispatch(connectionEstablished());
             });
 
-            socket.on(MessagesEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
-                messagesStore.dispatch(receiveMessage({ message }));
+            socket.on(ChatEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
+                chatStore.dispatch(newMessageUpdate({ message }));
+            });
+            socket.on(ChatEvents.SET_USERNAME_FAILURE, () => {
+                chatStore.dispatch(setUsernameFailure());
+            });
+            socket.on(ChatEvents.NEW_MESSAGE_USERNAME_NOT_REGISTERED, () => {
+                socket.disconnect();
+            });
+            socket.on(
+                ChatEvents.SET_USERNAME_SUCCESS,
+                ({ messages, usernames }: ChatState) => {
+                    chatStore.dispatch(
+                        setIsLogin({
+                            isLogin: true,
+                            isUsernameFailure: false,
+                        }),
+                    );
+                    chatStore.dispatch(
+                        setUsernameSuccess({ messages, usernames }),
+                    );
+                },
+            );
+            socket.on(ChatEvents.UPDATE_USERS, (users: string[]) => {
+                chatStore.dispatch(updateUsers({ users }));
+            });
+            socket.on(ChatEvents.USER_DISCONNECTED, (users: string[]) => {
+                chatStore.dispatch(userDisconnected({ users }));
             });
         }
 
-        if (submitMessage.match(action) && isConnectionEstablished) {
-            socket.emit(MessagesEvents.NEW_MESSAGE, action.payload.content);
+        if (newMessage.match(action) && isConnectionEstablished) {
+            socket.emit(ChatEvents.NEW_MESSAGE, action.payload.content);
+        }
+        if (setUsername.match(action)) {
+            socket.emit(ChatEvents.SET_USERNAME, action.payload.username);
         }
 
-        next(action);
+        return next(action);
     };
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([messagesMiddleware]),
+        getDefaultMiddleware().concat([messagesMiddleware, logger]),
 });
 export type AppDispatch = typeof store.dispatch;
