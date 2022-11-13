@@ -12,7 +12,7 @@ import { Response } from 'types/userType';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
-    const { loading, error, username } = useAppSelector((state) => state.user);
+    const { loading, error } = useAppSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -46,7 +46,7 @@ const Login = (): JSX.Element => {
         <div className={styles.login}>
             {error ? (
                 <div>
-                    <p>{username} already exist</p>
+                    <p>{error.message}</p>
                 </div>
             ) : (
                 ''

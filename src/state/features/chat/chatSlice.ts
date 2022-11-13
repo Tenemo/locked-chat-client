@@ -38,7 +38,7 @@ export const chatSlice = createSlice({
             state.messages = action.payload.messages;
             state.usernames = action.payload.usernames;
         },
-        updateUsersName: (
+        updateUsernames: (
             state,
             action: PayloadAction<{
                 users: string[];
@@ -71,7 +71,7 @@ export const chatSlice = createSlice({
 export const {
     newMessageUpdate,
     newMessage,
-    updateUsersName,
+    updateUsernames,
     userDisconnected,
     setUsernameSuccess,
 } = chatSlice.actions;

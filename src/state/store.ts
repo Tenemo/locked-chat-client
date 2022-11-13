@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 import chatReducer, {
     newMessage,
     newMessageUpdate,
-    updateUsersName,
+    updateUsernames,
     userDisconnected,
 } from './features/chat/chatSlice';
 import socketReducer, {
@@ -31,8 +31,8 @@ const messagesMiddleware: Middleware<unknown, RootState> =
                 chatStore.dispatch(newMessageUpdate({ message }));
             });
 
-            socket.on(ChatEvents.UPDATE_USERS_NAME, (users: string[]) => {
-                chatStore.dispatch(updateUsersName({ users }));
+            socket.on(ChatEvents.UPDATE_USERNAMES, (users: string[]) => {
+                chatStore.dispatch(updateUsernames({ users }));
             });
             socket.on(ChatEvents.USER_DISCONNECTED, (users: string[]) => {
                 chatStore.dispatch(userDisconnected({ users }));

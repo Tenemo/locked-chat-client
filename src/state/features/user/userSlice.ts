@@ -22,6 +22,7 @@ export const setUsernameThunk = createAsyncThunk(
             );
             return response.data;
         } catch (error) {
+            // tu mam problem bo zamiast odbierać error z be z responsa to dostaje axiosowy error
             throw error as AxiosError;
         }
     },
