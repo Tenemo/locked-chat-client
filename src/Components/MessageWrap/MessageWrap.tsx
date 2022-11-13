@@ -1,3 +1,5 @@
+import { parseISO } from 'date-fns';
+import format from 'date-fns/format';
 import React from 'react';
 
 import styles from './MessageWrap.module.scss';
@@ -8,21 +10,17 @@ type Props = {
     author: string;
     isOwnUsername: boolean;
 };
-const MessageWrap = ({
+const MessageWrap = React.memo(function MessageWrap({
     content,
     timestamp,
     author,
     isOwnUsername,
-}: Props): JSX.Element => {
-    const date = new Date(timestamp);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const time = `${hours}:${minutes}`;
-
+}: Props) {
+    const time = format(parseISO(timestamp), 'hh:mm');
     return (
         <div
             className={`${styles.messageWrap} ${
-                isOwnUsername ? styles.jsFe : styles.jsFs
+                isOwnUsername ? styles.ownUsername : styles.username
             }`}
         >
             <div className={styles.author}>{author}</div>
@@ -30,7 +28,6 @@ const MessageWrap = ({
             <p>{content}</p>
         </div>
     );
-};
+});
 
 export default MessageWrap;
-export const MemoizedMessageWrap = React.memo(MessageWrap);

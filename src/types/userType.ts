@@ -1,8 +1,15 @@
+import { SerializedError } from '@reduxjs/toolkit';
+
+import { ChatState } from './chatType';
+
 export type UserState = {
     username: string;
-    isLoggedIn: boolean;
-    error: Error;
+    error: null | SerializedError;
+    loading: 'pending' | 'fulfilled' | 'rejected' | '' | 'succeeded';
 };
-type Error = {
-    isUsernameFailure: boolean | null;
+
+export type Response = ChatState;
+export type Request = {
+    username: string;
+    socketID: string;
 };

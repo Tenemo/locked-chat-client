@@ -1,15 +1,18 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import { AxiosError } from 'axios';
+import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Login.module.scss';
 
-import { setUsername } from 'state/features/user/userSlice';
+import { setUsernameSuccess } from 'state/features/chat/chatSlice';
+import { setUsernameThunk } from 'state/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
+import { socket } from 'state/service';
+import { Response } from 'types/userType';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
-    const { isUsernameFailure } = useAppSelector((state) => state.user.error);
-    const { username } = useAppSelector((state) => state.user);
+    const { loading, error, username } = useAppSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -19,26 +22,29 @@ const Login = (): JSX.Element => {
         setValue(newValue);
     };
 
-    const handleSubmitClick = (): void => {
-        dispatch(
-            setUsername({
-                username: value,
-            }),
-        );
-    };
-    useEffect(() => {
-        if (isUsernameFailure === false) {
-            navigate('/chat');
+    const handleSubmitClick = async (): Promise<Response> => {
+        try {
+            const response = await dispatch(
+                setUsernameThunk({ username: value, socketID: socket.id }),
+            );
+            if (setUsernameThunk.fulfilled.match(response)) {
+                const { messages, usernames } = response.payload;
+                dispatch(setUsernameSuccess({ messages, usernames }));
+                navigate('/');
+            }
+            return response.payload as Response;
+        } catch (err) {
+            throw err as AxiosError;
         }
-    }, [isUsernameFailure, dispatch, navigate]);
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        handleSubmitClick();
+        void handleSubmitClick();
     };
     return (
         <div className={styles.login}>
-            {isUsernameFailure === true ? (
+            {error ? (
                 <div>
                     <p>{username} already exist</p>
                 </div>
@@ -65,8 +71,14 @@ const Login = (): JSX.Element => {
                     />
                 </label>
 
-                <button onClick={handleSubmitClick} type="button">
-                    Submit
+                <button
+                    disabled={loading === 'pending'}
+                    // czy to jest duży problem ? ;d
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick={handleSubmitClick}
+                    type="button"
+                >
+                    {loading === 'pending' ? 'loading' : ''}Submit
                 </button>
             </form>
         </div>

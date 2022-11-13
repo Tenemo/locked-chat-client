@@ -38,7 +38,7 @@ export const chatSlice = createSlice({
             state.messages = action.payload.messages;
             state.usernames = action.payload.usernames;
         },
-        updateUsers: (
+        updateUsersName: (
             state,
             action: PayloadAction<{
                 users: string[];
@@ -54,13 +54,24 @@ export const chatSlice = createSlice({
         ) => {
             state.usernames = [...action.payload.users];
         },
+        // zakladajac ze mam to dispatchować w login zamiast setUsernameSuccess to jak ja mam to wyexportować
+        'user/setUsername/fulfilled': (
+            state,
+            action: PayloadAction<{
+                messages: Message[];
+                usernames: string[];
+            }>,
+        ) => {
+            state.messages = action.payload.messages;
+            state.usernames = action.payload.usernames;
+        },
     },
 });
 
 export const {
     newMessageUpdate,
     newMessage,
-    updateUsers,
+    updateUsersName,
     userDisconnected,
     setUsernameSuccess,
 } = chatSlice.actions;

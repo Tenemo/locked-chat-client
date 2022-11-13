@@ -1,51 +1,51 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
-import { UserState } from 'types/userType';
+import { Request, Response, UserState } from 'types/userType';
 
 const initialState: UserState = {
     username: '',
-    isLoggedIn: false,
-    error: { isUsernameFailure: null },
+    error: null,
+    loading: '',
 };
+
+export const setUsernameThunk = createAsyncThunk(
+    'user/setUsername',
+    async ({ username, socketID }: Request) => {
+        try {
+            const response = await axios.post<Response>(
+                'http://localhost:4000/set-username',
+                {
+                    username,
+                    socketID,
+                },
+            );
+            return response.data;
+        } catch (error) {
+            throw error as AxiosError;
+        }
+    },
+);
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-        setUsername: (
-            state,
-            action: PayloadAction<{
-                username: string;
-            }>,
-        ) => {
-            state.username = action.payload.username;
-            state.error = {
-                ...state.error,
-                isUsernameFailure: null,
-            };
-        },
-        setIsLogin: (
-            state,
-            action: PayloadAction<{
-                isLogin: boolean;
-                isUsernameFailure: boolean;
-            }>,
-        ) => {
-            state.isLoggedIn = action.payload.isLogin;
-            state.error = {
-                ...state.error,
-                isUsernameFailure: action.payload.isUsernameFailure,
-            };
-        },
-        setUsernameFailure: (state) => {
-            state.error = {
-                ...state.error,
-                isUsernameFailure: true,
-            };
-        },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(setUsernameThunk.pending, (state, action) => {
+            state.loading = 'pending';
+            state.username = action.meta.arg.username;
+            state.error = null;
+        });
+        builder.addCase(setUsernameThunk.fulfilled, (state) => {
+            state.loading = 'fulfilled';
+        });
+        builder.addCase(setUsernameThunk.rejected, (state, action) => {
+            state.loading = 'rejected';
+            // Cos mowiles ze ci nie pasuje ze do state.error przekazuje caly obiekt action.error ale nie wiem o co ci chodzilo, co w takim razie mam przekazywac?
+            state.error = action.error;
+        });
     },
 });
 
-export const { setUsername, setIsLogin, setUsernameFailure } =
-    userSlice.actions;
 export default userSlice.reducer;
