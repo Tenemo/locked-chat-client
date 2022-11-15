@@ -7,6 +7,7 @@ const MessagesBox = (): JSX.Element => {
     const messages = useAppSelector((state) => state.chat.messages);
     const { username: isOwnUsername } = useAppSelector((state) => state.user);
     let author = '';
+
     const newMessages = messages.map((message) => {
         if (message.author === author) {
             return {
@@ -19,6 +20,7 @@ const MessagesBox = (): JSX.Element => {
 
         return { ...message, isOwnUsername: message.author === isOwnUsername };
     });
+
     return (
         <div className={styles.messageBox}>
             {newMessages.map((message) => (
