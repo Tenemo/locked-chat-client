@@ -72,7 +72,7 @@ const Login = (): JSX.Element => {
                 </label>
 
                 <button
-                    disabled={loading === 'pending'}
+                    disabled={!!(loading === 'pending' || value !== '')}
                     // czy to jest duży problem ? ;d
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onClick={handleSubmitClick}

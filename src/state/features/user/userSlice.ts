@@ -20,8 +20,10 @@ export const setUsernameThunk = createAsyncThunk(
                     socketID,
                 },
             );
+            console.log('...', response);
             return response.data;
         } catch (error) {
+            console.log('catch', error);
             // tu mam problem bo zamiast odbierać error z be z responsa to dostaje axiosowy error
             throw error as AxiosError;
         }
@@ -44,6 +46,8 @@ export const userSlice = createSlice({
         builder.addCase(setUsernameThunk.rejected, (state, action) => {
             state.loading = 'rejected';
             // Cos mowiles ze ci nie pasuje ze do state.error przekazuje caly obiekt action.error ale nie wiem o co ci chodzilo, co w takim razie mam przekazywac?
+            console.log('action.error', action.error);
+            console.log('action', action);
             state.error = action.error;
         });
     },
