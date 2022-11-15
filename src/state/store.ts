@@ -71,7 +71,11 @@ const messagesMiddleware: Middleware<unknown, RootState> =
         }
 
         if (newMessage.match(action) && isConnectionEstablished) {
-            socket.emit(ChatEvents.NEW_MESSAGE, action.payload.content);
+            socket.emit(
+                ChatEvents.NEW_MESSAGE,
+                action.payload.content,
+                action.payload.messageId,
+            );
         }
         if (setUsername.match(action)) {
             socket.emit(ChatEvents.SET_USERNAME, action.payload.username);

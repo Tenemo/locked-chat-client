@@ -5,6 +5,8 @@ import { ChatState, Message } from 'types/chatType';
 const initialState: ChatState = {
     messages: [],
     usernames: [],
+    isReplyMessage: false,
+    replyToId: '',
 };
 
 export const chatSlice = createSlice({
@@ -17,6 +19,7 @@ export const chatSlice = createSlice({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             _action: PayloadAction<{
                 content: string;
+                messageId: string;
             }>,
             // eslint-disable-next-line @typescript-eslint/no-empty-function
         ) => {},
@@ -54,6 +57,15 @@ export const chatSlice = createSlice({
         ) => {
             state.usernames = [...action.payload.users];
         },
+        setReplyToId: (state, action: PayloadAction<{ replyToId: string }>) => {
+            state.replyToId = action.payload.replyToId;
+        },
+        setIsReplyMessage: (
+            state,
+            action: PayloadAction<{ isReplyMessage: boolean }>,
+        ) => {
+            state.isReplyMessage = action.payload.isReplyMessage;
+        },
     },
 });
 
@@ -63,5 +75,7 @@ export const {
     updateUsers,
     userDisconnected,
     setUsernameSuccess,
+    setReplyToId,
+    setIsReplyMessage,
 } = chatSlice.actions;
 export default chatSlice.reducer;

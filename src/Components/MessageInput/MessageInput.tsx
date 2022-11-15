@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 
 import styles from './MessageInput.module.scss';
 
-import { newMessage } from 'state/features/chat/chatSlice';
-import { useAppDispatch } from 'state/hooks';
+import ReplyToMessage from 'Components/ReplyToMessage/ReplyToMessage';
+import {
+    newMessage,
+    setIsReplyMessage,
+    setReplyToId,
+} from 'state/features/chat/chatSlice';
+import { useAppDispatch, useAppSelector } from 'state/hooks';
 
 const MessageInput = (): JSX.Element => {
+    const { replyToId: messageId } = useAppSelector((state) => state.chat);
+    const { isReplyMessage } = useAppSelector((state) => state.chat);
+
     const [inputValue, setInputValue] = useState<string>('');
 
     const handleInputChange = ({
@@ -19,16 +27,27 @@ const MessageInput = (): JSX.Element => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        dispatch(newMessage({ content: inputValue }));
+        if (!inputValue) return;
+
+        dispatch(newMessage({ content: inputValue, messageId }));
+
+        dispatch(setIsReplyMessage({ isReplyMessage: false }));
+        dispatch(setReplyToId({ replyToId: '' }));
+
         setInputValue('');
     };
 
     return (
         <div className={styles.messageInput}>
+            {isReplyMessage ? (
+                <ReplyToMessage inMessageWrap={false} replyTo={messageId} />
+            ) : (
+                ''
+            )}
             <form autoComplete="off" onSubmit={handleSubmit}>
                 <input
                     // eslint-disable-next-line jsx-a11y/no-autofocus
-                    autoFocus
+                    autoFocus={!!isReplyMessage}
                     name="inputValue"
                     onChange={handleInputChange}
                     placeholder="Message"
