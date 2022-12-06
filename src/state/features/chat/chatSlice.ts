@@ -74,5 +74,6 @@ export const {
     updateUsernames,
     userDisconnected,
     setUsernameSuccess,
+    'user/setUsername/fulfilled': setUsernameFulfilled,
 } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+    SerializedError,
+    createAsyncThunk,
+    createSlice,
+} from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 
 import { Request, Response, UserState } from 'types/userType';
@@ -8,13 +12,6 @@ const initialState: UserState = {
     error: null,
     loading: '',
 };
-export interface SerializedError {
-    name?: string;
-    message?: string;
-    stack?: string;
-    code?: string;
-    respone: { data: string };
-}
 
 export const setUsernameThunk = createAsyncThunk(
     'user/setUsername',
@@ -27,13 +24,20 @@ export const setUsernameThunk = createAsyncThunk(
                     socketID,
                 },
             );
-            console.log('...', response);
             return response.data;
         } catch (error) {
-            console.log('catch', error);
-            // tu mam problem bo zamiast odbierać error z be z responsa to dostaje axiosowy error
-            // throw error as AxiosError;
-            return ThunkAPI.rejectWithValue(error.response);
+            // Assert that the error variable is an instance of AxiosError
+            const axiosError = error as AxiosError;
+            // Extract only the relevant data from the error.response object
+            const serializedError: SerializedError = {
+                name: axiosError.name,
+                message: axiosError.response?.data as string,
+                stack: axiosError.stack,
+                code: axiosError.code,
+            };
+
+            // Return the serialized error instead of the full error.response object
+            return ThunkAPI.rejectWithValue(serializedError);
         }
     },
 );
@@ -51,12 +55,9 @@ export const userSlice = createSlice({
         builder.addCase(setUsernameThunk.fulfilled, (state) => {
             state.loading = 'fulfilled';
         });
-        builder.addCase(setUsernameThunk.rejected, (state, action) => {
+        builder.addCase(setUsernameThunk.rejected, (state, { payload }) => {
             state.loading = 'rejected';
-            // Cos mowiles ze ci nie pasuje ze do state.error przekazuje caly obiekt action.error ale nie wiem o co ci chodzilo, co w takim razie mam przekazywac?
-            console.log('action.error', action.error);
-            console.log('action rejected', action);
-            state.error = action.payload;
+            state.error = payload as SerializedError;
         });
     },
 });

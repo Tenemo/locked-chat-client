@@ -46,7 +46,7 @@ const Login = (): JSX.Element => {
         <div className={styles.login}>
             {error ? (
                 <div>
-                    <p>{error.data}</p>
+                    <p>{error.message}</p>
                 </div>
             ) : (
                 ''
