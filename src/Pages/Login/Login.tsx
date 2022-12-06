@@ -46,7 +46,7 @@ const Login = (): JSX.Element => {
         <div className={styles.login}>
             {error ? (
                 <div>
-                    <p>{error.message}</p>
+                    <p>{error.data}</p>
                 </div>
             ) : (
                 ''
@@ -72,7 +72,7 @@ const Login = (): JSX.Element => {
                 </label>
 
                 <button
-                    disabled={!!(loading === 'pending' || value !== '')}
+                    disabled={!!(loading === 'pending' || value === '')}
                     // czy to jest duży problem ? ;d
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onClick={handleSubmitClick}

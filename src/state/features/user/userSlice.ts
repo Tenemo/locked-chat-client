@@ -8,10 +8,17 @@ const initialState: UserState = {
     error: null,
     loading: '',
 };
+export interface SerializedError {
+    name?: string;
+    message?: string;
+    stack?: string;
+    code?: string;
+    respone: { data: string };
+}
 
 export const setUsernameThunk = createAsyncThunk(
     'user/setUsername',
-    async ({ username, socketID }: Request) => {
+    async ({ username, socketID }: Request, ThunkAPI) => {
         try {
             const response = await axios.post<Response>(
                 'http://localhost:4000/set-username',
@@ -25,7 +32,8 @@ export const setUsernameThunk = createAsyncThunk(
         } catch (error) {
             console.log('catch', error);
             // tu mam problem bo zamiast odbierać error z be z responsa to dostaje axiosowy error
-            throw error as AxiosError;
+            // throw error as AxiosError;
+            return ThunkAPI.rejectWithValue(error.response);
         }
     },
 );
@@ -47,8 +55,8 @@ export const userSlice = createSlice({
             state.loading = 'rejected';
             // Cos mowiles ze ci nie pasuje ze do state.error przekazuje caly obiekt action.error ale nie wiem o co ci chodzilo, co w takim razie mam przekazywac?
             console.log('action.error', action.error);
-            console.log('action', action);
-            state.error = action.error;
+            console.log('action rejected', action);
+            state.error = action.payload;
         });
     },
 });
