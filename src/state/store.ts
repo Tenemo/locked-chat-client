@@ -2,9 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
 import logger from 'redux-logger';
 
+import { api } from './features/api/api';
 import chatReducer, {
     newMessage,
     newMessageUpdate,
+    setUsernameSuccess,
     updateUsernames,
     userDisconnected,
 } from './features/chat/chatSlice';
@@ -16,12 +18,18 @@ import userReducer from './features/user/userSlice';
 import { socket } from './service';
 
 import { ChatEvents } from 'enums/ChatEvents';
-import { Message } from 'types/chatType';
+import { ChatState, Message } from 'types/chatType';
 
+interface ActionPayload extends Action {
+    payload: ChatState;
+}
 const messagesMiddleware: Middleware<unknown, RootState> =
-    (chatStore) => (next) => (action: Action) => {
+    (chatStore) => (next) => (action: ActionPayload) => {
         const isConnectionEstablished =
             socket && chatStore.getState().socket.isConnected;
+        if (action.type === 'api/executeMutation/fulfilled') {
+            chatStore.dispatch(setUsernameSuccess({ ...action.payload }));
+        }
         if (startConnecting.match(action)) {
             socket.on('connect', () => {
                 chatStore.dispatch(connectionEstablished());
@@ -48,19 +56,19 @@ const messagesMiddleware: Middleware<unknown, RootState> =
 
 const rootReducer = combineReducers({
     socket: socketReducer,
-    user: userReducer,
     chat: chatReducer,
+    user: userReducer,
+    [api.reducerPath]: api.reducer,
 });
 
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                // Ignore these action types
-                ignoredActions: ['user/setUsername/rejected'],
-            },
-        }).concat([messagesMiddleware, logger]),
+        getDefaultMiddleware().concat([
+            messagesMiddleware,
+            logger,
+            api.middleware,
+        ]),
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

@@ -54,17 +54,6 @@ export const chatSlice = createSlice({
         ) => {
             state.usernames = [...action.payload.users];
         },
-        // zakladajac ze mam to dispatchować w login zamiast setUsernameSuccess to jak ja mam to wyexportować
-        'user/setUsername/fulfilled': (
-            state,
-            action: PayloadAction<{
-                messages: Message[];
-                usernames: string[];
-            }>,
-        ) => {
-            state.messages = action.payload.messages;
-            state.usernames = action.payload.usernames;
-        },
     },
 });
 
@@ -74,6 +63,5 @@ export const {
     updateUsernames,
     userDisconnected,
     setUsernameSuccess,
-    'user/setUsername/fulfilled': setUsernameFulfilled,
 } = chatSlice.actions;
 export default chatSlice.reducer;

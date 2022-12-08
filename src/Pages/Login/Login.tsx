@@ -1,18 +1,19 @@
-import { AxiosError } from 'axios';
 import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Login.module.scss';
 
-import { setUsernameSuccess } from 'state/features/chat/chatSlice';
-import { setUsernameThunk } from 'state/features/user/userSlice';
+import { useSetUsernameMutation } from 'state/features/api/api';
+import { setUsernameReducer } from 'state/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
 import { socket } from 'state/service';
-import { Response } from 'types/userType';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
-    const { loading, error } = useAppSelector((state) => state.user);
+    const [setUsername, response] = useSetUsernameMutation({
+        fixedCacheKey: 'shared-set-username',
+    });
+    const { errorMessage } = useAppSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -21,32 +22,41 @@ const Login = (): JSX.Element => {
     }: ChangeEvent<HTMLInputElement>): void => {
         setValue(newValue);
     };
+    const handleSubmitClick = (): void => {
+        setUsername({ username: value, socketID: socket.id })
+            .unwrap()
+            .then(() => {
+                dispatch(setUsernameReducer({ username: value }));
 
-    const handleSubmitClick = async (): Promise<Response> => {
-        try {
-            const response = await dispatch(
-                setUsernameThunk({ username: value, socketID: socket.id }),
-            );
-            if (setUsernameThunk.fulfilled.match(response)) {
-                const { messages, usernames } = response.payload;
-                dispatch(setUsernameSuccess({ messages, usernames }));
                 navigate('/');
-            }
-            return response.payload as Response;
-        } catch (err) {
-            throw err as AxiosError;
-        }
+            })
+            .catch(
+                (error: {
+                    data: string;
+                    error: string;
+                    originalStatus: number;
+                    status: string;
+                }) => {
+                    dispatch(
+                        setUsernameReducer({
+                            username: value,
+                            error: error.data,
+                        }),
+                    );
+                },
+            );
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        void handleSubmitClick();
+        handleSubmitClick();
     };
+
     return (
         <div className={styles.login}>
-            {error ? (
+            {errorMessage ? (
                 <div>
-                    <p>{error.message}</p>
+                    <p>{errorMessage}</p>
                 </div>
             ) : (
                 ''
@@ -72,13 +82,11 @@ const Login = (): JSX.Element => {
                 </label>
 
                 <button
-                    disabled={!!(loading === 'pending' || value === '')}
-                    // czy to jest duży problem ? ;d
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    disabled={response.isLoading}
                     onClick={handleSubmitClick}
                     type="button"
                 >
-                    {loading === 'pending' ? 'loading' : ''}Submit
+                    {response.isLoading ? 'loading' : 'Submit'}
                 </button>
             </form>
         </div>
