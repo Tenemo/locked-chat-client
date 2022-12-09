@@ -6,12 +6,14 @@ type Props = {
     name: string;
     isOwnUsername: boolean;
 };
-const Username = ({ name, isOwnUsername = false }: Props): JSX.Element => {
+const Username = React.memo(function Username({
+    name,
+    isOwnUsername = false,
+}: Props) {
     return (
-        <div className={isOwnUsername ? styles.active : ''}>
+        <div className={isOwnUsername ? styles.ownUsername : ''}>
             <h2>{name}</h2>
         </div>
     );
-};
-
-export const MemoizedUsername = React.memo(Username);
+});
+export default Username;

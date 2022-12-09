@@ -1,8 +1,12 @@
+import { ChatState } from './chatType';
+
 export type UserState = {
     username: string;
-    isLoggedIn: boolean;
-    error: Error;
+    errorMessage: null | string | undefined;
 };
-type Error = {
-    isUsernameFailure: boolean | null;
+
+export type Response = ChatState;
+export type Request = {
+    username: string;
+    socketID: string;
 };

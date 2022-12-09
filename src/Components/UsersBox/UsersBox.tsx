@@ -1,6 +1,6 @@
 import styles from './UserBox.module.scss';
 
-import { MemoizedUsername } from 'Components/Username/Username';
+import Username from 'Components/Username/Username';
 import { useAppSelector } from 'state/hooks';
 
 const UsersBox = (): JSX.Element => {
@@ -9,11 +9,11 @@ const UsersBox = (): JSX.Element => {
 
     return (
         <div className={styles.usersBox}>
-            <MemoizedUsername isOwnUsername name={ownUsername} />
+            <Username isOwnUsername name={ownUsername} />
             {usernames.map(
                 (username) =>
                     username !== ownUsername && (
-                        <MemoizedUsername
+                        <Username
                             key={username}
                             isOwnUsername={false}
                             name={username}

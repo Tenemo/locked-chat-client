@@ -2,38 +2,34 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Middleware, Action, combineReducers } from 'redux';
 import logger from 'redux-logger';
 
+import { api } from './features/api/api';
 import chatReducer, {
     newMessage,
     newMessageUpdate,
     setUsernameSuccess,
-    updateUsers,
+    updateUsernames,
     userDisconnected,
 } from './features/chat/chatSlice';
 import socketReducer, {
     startConnecting,
     connectionEstablished,
 } from './features/socket/socketSlice';
-import userReducer, {
-    setUsername,
-    setIsLogin,
-    setUsernameFailure,
-} from './features/user/userSlice';
+import userReducer from './features/user/userSlice';
 import { socket } from './service';
 
 import { ChatEvents } from 'enums/ChatEvents';
-import { Message, ChatState } from 'types/chatType';
+import { ChatState, Message } from 'types/chatType';
 
-const rootReducer = combineReducers({
-    socket: socketReducer,
-    user: userReducer,
-    chat: chatReducer,
-});
-export type RootState = ReturnType<typeof rootReducer>;
-
+interface ActionPayload extends Action {
+    payload: ChatState;
+}
 const messagesMiddleware: Middleware<unknown, RootState> =
-    (chatStore) => (next) => (action: Action) => {
+    (chatStore) => (next) => (action: ActionPayload) => {
         const isConnectionEstablished =
             socket && chatStore.getState().socket.isConnected;
+        if (action.type === 'api/executeMutation/fulfilled') {
+            chatStore.dispatch(setUsernameSuccess({ ...action.payload }));
+        }
         if (startConnecting.match(action)) {
             socket.on('connect', () => {
                 chatStore.dispatch(connectionEstablished());
@@ -42,28 +38,9 @@ const messagesMiddleware: Middleware<unknown, RootState> =
             socket.on(ChatEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
                 chatStore.dispatch(newMessageUpdate({ message }));
             });
-            socket.on(ChatEvents.SET_USERNAME_FAILURE, () => {
-                chatStore.dispatch(setUsernameFailure());
-            });
-            socket.on(ChatEvents.NEW_MESSAGE_USERNAME_NOT_REGISTERED, () => {
-                socket.disconnect();
-            });
-            socket.on(
-                ChatEvents.SET_USERNAME_SUCCESS,
-                ({ messages, usernames }: ChatState) => {
-                    chatStore.dispatch(
-                        setIsLogin({
-                            isLogin: true,
-                            isUsernameFailure: false,
-                        }),
-                    );
-                    chatStore.dispatch(
-                        setUsernameSuccess({ messages, usernames }),
-                    );
-                },
-            );
-            socket.on(ChatEvents.UPDATE_USERS, (users: string[]) => {
-                chatStore.dispatch(updateUsers({ users }));
+
+            socket.on(ChatEvents.UPDATE_USERNAMES, (users: string[]) => {
+                chatStore.dispatch(updateUsernames({ users }));
             });
             socket.on(ChatEvents.USER_DISCONNECTED, (users: string[]) => {
                 chatStore.dispatch(userDisconnected({ users }));
@@ -73,15 +50,25 @@ const messagesMiddleware: Middleware<unknown, RootState> =
         if (newMessage.match(action) && isConnectionEstablished) {
             socket.emit(ChatEvents.NEW_MESSAGE, action.payload.content);
         }
-        if (setUsername.match(action)) {
-            socket.emit(ChatEvents.SET_USERNAME, action.payload.username);
-        }
 
         return next(action);
     };
+
+const rootReducer = combineReducers({
+    socket: socketReducer,
+    chat: chatReducer,
+    user: userReducer,
+    [api.reducerPath]: api.reducer,
+});
+
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([messagesMiddleware, logger]),
+        getDefaultMiddleware().concat([
+            messagesMiddleware,
+            logger,
+            api.middleware,
+        ]),
 });
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,15 +1,19 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Login.module.scss';
 
-import { setUsername } from 'state/features/user/userSlice';
+import { useSetUsernameMutation } from 'state/features/api/api';
+import { setUsernameReducer } from 'state/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
+import { socket } from 'state/service';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
-    const { isUsernameFailure } = useAppSelector((state) => state.user.error);
-    const { username } = useAppSelector((state) => state.user);
+    const [setUsername, response] = useSetUsernameMutation({
+        fixedCacheKey: 'shared-set-username',
+    });
+    const { errorMessage } = useAppSelector((state) => state.user);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -18,29 +22,41 @@ const Login = (): JSX.Element => {
     }: ChangeEvent<HTMLInputElement>): void => {
         setValue(newValue);
     };
-
     const handleSubmitClick = (): void => {
-        dispatch(
-            setUsername({
-                username: value,
-            }),
-        );
+        setUsername({ username: value, socketID: socket.id })
+            .unwrap()
+            .then(() => {
+                dispatch(setUsernameReducer({ username: value }));
+
+                navigate('/');
+            })
+            .catch(
+                (error: {
+                    data: string;
+                    error: string;
+                    originalStatus: number;
+                    status: string;
+                }) => {
+                    dispatch(
+                        setUsernameReducer({
+                            username: value,
+                            error: error.data,
+                        }),
+                    );
+                },
+            );
     };
-    useEffect(() => {
-        if (isUsernameFailure === false) {
-            navigate('/chat');
-        }
-    }, [isUsernameFailure, dispatch, navigate]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         handleSubmitClick();
     };
+
     return (
         <div className={styles.login}>
-            {isUsernameFailure === true ? (
+            {errorMessage ? (
                 <div>
-                    <p>{username} already exist</p>
+                    <p>{errorMessage}</p>
                 </div>
             ) : (
                 ''
@@ -65,8 +81,12 @@ const Login = (): JSX.Element => {
                     />
                 </label>
 
-                <button onClick={handleSubmitClick} type="button">
-                    Submit
+                <button
+                    disabled={response.isLoading}
+                    onClick={handleSubmitClick}
+                    type="button"
+                >
+                    {response.isLoading ? 'loading' : 'Submit'}
                 </button>
             </form>
         </div>

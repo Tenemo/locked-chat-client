@@ -26,8 +26,8 @@ const App = (): JSX.Element => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<Login />} path="/" />
-                <Route element={<Chat />} path="/chat" />
+                <Route element={<Chat />} path="/" />
+                <Route element={<Login />} path="/login" />
                 <Route element={<NotFound />} path="*" />
             </Routes>
         </BrowserRouter>
