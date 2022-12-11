@@ -17,8 +17,7 @@ import socketReducer, {
 import userReducer from './features/user/userSlice';
 import { socket } from './service';
 
-import { ChatEvents } from 'enums/ChatEvents';
-import { ChatState, Message } from 'types/chatType';
+import { ChatEvents, ChatState, Message } from 'types/chatType';
 
 interface ActionPayload extends Action {
     payload: ChatState;
