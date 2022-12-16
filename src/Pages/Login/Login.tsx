@@ -26,15 +26,17 @@ const Login = (): JSX.Element => {
     const handleSubmitClick = (): void => {
         setUsername({ username: value, socketID: socket.id })
             .unwrap()
-            .then(() => {
-                // dispatch(setUsernameReducer({ username: value }));
+            .then((resp) => {
                 dispatch(
                     loginReducer({
                         username: value,
                         setIsLoggedIn: LoginEvents.LOG_IN,
+                        token: resp.token,
+                        userId: resp.userId,
                     }),
                 );
-
+                console.log('!!!!!!!!!!!!!!!!!', resp);
+                localStorage.setItem('token', JSON.stringify(resp.token)); // todo `token ${value}`?
                 navigate('/');
             })
             .catch(
@@ -47,8 +49,10 @@ const Login = (): JSX.Element => {
                     dispatch(
                         loginReducer({
                             username: value,
-                            error: error.data,
+                            errorMessage: error.data,
                             setIsLoggedIn: LoginEvents.LOG_OUT,
+                            token: null,
+                            userId: null,
                         }),
                     );
                 },

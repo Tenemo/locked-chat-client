@@ -1,7 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { ChatState } from 'types/chatType';
-import { Request } from 'types/userType';
+import {
+    SetUsernameResponse,
+    SetUsernameRequest,
+    VerifyTokenResponse,
+    VerifyTokenRequest,
+} from 'types/apiTypes';
 // "one API slice per base URL" as a rule of thumb.
 export const api = createApi({
     reducerPath: 'api',
@@ -9,7 +13,7 @@ export const api = createApi({
         baseUrl: 'http://localhost:4000',
     }),
     endpoints: (builder) => ({
-        setUsername: builder.mutation<ChatState, Request>({
+        setUsername: builder.mutation<SetUsernameResponse, SetUsernameRequest>({
             query: (payload) => ({
                 url: '/set-username',
                 method: 'POST',
@@ -19,6 +23,16 @@ export const api = createApi({
                 },
             }),
         }),
+        verifyToken: builder.query<VerifyTokenResponse, VerifyTokenRequest>({
+            query: (payload) => ({
+                url: '/verify-token',
+                method: 'POST',
+                body: payload,
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }),
+        }),
     }),
 });
-export const { useSetUsernameMutation } = api;
+export const { useSetUsernameMutation, useVerifyTokenQuery } = api;

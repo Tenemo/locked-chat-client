@@ -1,16 +1,14 @@
-import { ChatState } from './chatType';
-
 export type UserState = {
     username: string;
-    errorMessage: null | string | undefined;
+    errorMessage?: null | string;
     isLoggedIn: LoginEvents;
+    token: string | null;
+    userID: string | null;
 };
 
-export type Response = ChatState;
-export type Request = {
-    username: string;
-    socketID: string;
-};
+// todo mozna usunac?
+// export type Response = ChatState;
+
 export enum LoginEvents {
     LOG_IN = 1,
     LOG_OUT = 0,

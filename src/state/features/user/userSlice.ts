@@ -6,6 +6,8 @@ const initialState: UserState = {
     username: '',
     errorMessage: null,
     isLoggedIn: LoginEvents.LOG_OUT,
+    token: null,
+    userID: null,
 };
 
 export const userSlice = createSlice({
@@ -17,12 +19,16 @@ export const userSlice = createSlice({
             action: PayloadAction<{
                 username: string;
                 setIsLoggedIn: LoginEvents;
-                error?: string;
+                errorMessage?: string;
+                token: string | null;
+                userId: string | null;
             }>,
         ) => {
             state.username = action.payload.username;
-            state.errorMessage = action.payload.error;
+            state.errorMessage = action.payload.errorMessage;
             state.isLoggedIn = action.payload.setIsLoggedIn;
+            state.token = action.payload.token;
+            state.userID = action.payload.userId;
         },
     },
 });

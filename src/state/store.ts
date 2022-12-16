@@ -22,13 +22,29 @@ import { ChatEvents, ChatState, Message } from 'types/chatType';
 interface ActionPayload extends Action {
     payload: ChatState;
 }
+// function verifyToken() {
+//     const getToken = localStorage.getItem('token');
+//     const token = JSON.parse(getToken) as string;
+
+//     const result = api.endpoints.verifyToken.initiate({ token });
+
+//     return result;
+// }
 const messagesMiddleware: Middleware<unknown, RootState> =
     (chatStore) => (next) => (action: ActionPayload) => {
+        // Fired upon a successful reconnection
+        // socket.io.on('reconnect', () => {
+        //     console.log('successful reconnect attempt ');
+
+        //     chatStore.dispatch(verifyToken());
+        // });
         const isConnectionEstablished =
             socket && chatStore.getState().socket.isConnected;
         if (action.type === 'api/executeMutation/fulfilled') {
+            // to działa ale to jest okej że tak używam spread operator? reducer przyjmuje z payload usernames i messages, payload zawiera jeszcze token, co sie z nim dzieje w tym przypadku?
             chatStore.dispatch(setUsernameSuccess({ ...action.payload }));
         }
+
         if (startConnecting.match(action)) {
             socket.on('connect', () => {
                 chatStore.dispatch(connectionEstablished());
