@@ -1,27 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UserState } from 'types/userType';
+import { UserState, LoginEvents } from 'types/userType';
 
 const initialState: UserState = {
     username: '',
     errorMessage: null,
+    isLoggedIn: LoginEvents.LOG_OUT,
+    token: null,
+    userID: null,
 };
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUsernameReducer: (
+        loginReducer: (
             state,
             action: PayloadAction<{
                 username: string;
-                error?: string;
+                setIsLoggedIn: LoginEvents;
+                errorMessage?: string;
+                token: string | null;
+                userId: string | null;
             }>,
         ) => {
             state.username = action.payload.username;
-            state.errorMessage = action.payload.error;
+            state.errorMessage = action.payload.errorMessage;
+            state.isLoggedIn = action.payload.setIsLoggedIn;
+            state.token = action.payload.token;
+            state.userID = action.payload.userId;
         },
     },
 });
 export default userSlice.reducer;
-export const { setUsernameReducer } = userSlice.actions;
+export const { loginReducer } = userSlice.actions;

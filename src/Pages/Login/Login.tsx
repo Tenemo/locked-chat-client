@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.scss';
 
 import { useSetUsernameMutation } from 'state/features/api/api';
-import { setUsernameReducer } from 'state/features/user/userSlice';
+import { loginReducer } from 'state/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from 'state/hooks';
 import { socket } from 'state/service';
+import { LoginEvents } from 'types/userType';
 
 const Login = (): JSX.Element => {
     const [value, setValue] = useState<string>('');
@@ -25,9 +26,17 @@ const Login = (): JSX.Element => {
     const handleSubmitClick = (): void => {
         setUsername({ username: value, socketID: socket.id })
             .unwrap()
-            .then(() => {
-                dispatch(setUsernameReducer({ username: value }));
-
+            .then((resp) => {
+                dispatch(
+                    loginReducer({
+                        username: value,
+                        setIsLoggedIn: LoginEvents.LOG_IN,
+                        token: resp.token,
+                        userId: resp.userId,
+                    }),
+                );
+                console.log('!!!!!!!!!!!!!!!!!', resp);
+                localStorage.setItem('token', JSON.stringify(resp.token)); // todo `token ${value}`?
                 navigate('/');
             })
             .catch(
@@ -38,9 +47,12 @@ const Login = (): JSX.Element => {
                     status: string;
                 }) => {
                     dispatch(
-                        setUsernameReducer({
+                        loginReducer({
                             username: value,
-                            error: error.data,
+                            errorMessage: error.data,
+                            setIsLoggedIn: LoginEvents.LOG_OUT,
+                            token: null,
+                            userId: null,
                         }),
                     );
                 },

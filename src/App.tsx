@@ -18,6 +18,7 @@ const App = (): JSX.Element => {
     const isConnected = useAppSelector((state) => {
         return state.socket.isConnected;
     });
+
     useEffect(() => {
         if (!isConnected && !isEstablishingConnection) {
             dispatch(startConnecting());

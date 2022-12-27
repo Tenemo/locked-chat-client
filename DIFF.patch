@@ -1,0 +1,1335 @@
+diff --git a/.eslintrc.js b/.eslintrc.js
+index 41d468f..dac75a6 100644
+--- a/.eslintrc.js
++++ b/.eslintrc.js
+@@ -73,8 +73,6 @@ module.exports = {
+         'no-use-before-define': OFF, // @typescript-eslint/no-use-before-define replaces this rule
+         'no-restricted-exports': OFF,
+         'no-shadow': OFF, // https://github.com/typescript-eslint/tslint-to-eslint-config/issues/856
+-        'no-void':OFF,
+-        'no-throw-literal':OFF,
+ 
+         'react/prop-types': OFF,
+         'react/prefer-stateless-function': OFF,
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+index 097e179..9f9c671 100644
+--- a/.vscode/settings.json
++++ b/.vscode/settings.json
+@@ -57,7 +57,6 @@
+         "kohler",
+         "msjsdiag",
+         "pmmmwh",
+-        "reduxjs",
+         "sourcemap",
+         "streetsidesoftware",
+         "teamsupercell",
+diff --git a/package-lock.json b/package-lock.json
+index 2c912e4..1cefebf 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -10,9 +10,7 @@
+             "hasInstallScript": true,
+             "dependencies": {
+                 "@reduxjs/toolkit": "^1.8.5",
+-                "buffer": "^6.0.3",
+                 "date-fns": "^2.29.3",
+-                "jsonwebtoken": "^8.5.1",
+                 "react": "^18.2.0",
+                 "react-dom": "^18.2.0",
+                 "react-redux": "^8.0.4",
+@@ -30,7 +28,6 @@
+                 "@types/eslint": "^8.4.6",
+                 "@types/eslint-plugin-prettier": "^3.1.0",
+                 "@types/jest": "^29.0.3",
+-                "@types/jsonwebtoken": "^8.5.9",
+                 "@types/node": "^18.7.23",
+                 "@types/prettier": "^2.7.0",
+                 "@types/react": "^18.0.21",
+@@ -4331,15 +4328,6 @@
+             "version": "0.0.29",
+             "license": "MIT"
+         },
+-        "node_modules/@types/jsonwebtoken": {
+-            "version": "8.5.9",
+-            "resolved": "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.5.9.tgz",
+-            "integrity": "sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==",
+-            "dev": true,
+-            "dependencies": {
+-                "@types/node": "*"
+-            }
+-        },
+         "node_modules/@types/mime": {
+             "version": "3.0.1",
+             "license": "MIT"
+@@ -5663,25 +5651,6 @@
+             "version": "1.0.2",
+             "license": "MIT"
+         },
+-        "node_modules/base64-js": {
+-            "version": "1.5.1",
+-            "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz",
+-            "integrity": "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==",
+-            "funding": [
+-                {
+-                    "type": "github",
+-                    "url": "https://github.com/sponsors/feross"
+-                },
+-                {
+-                    "type": "patreon",
+-                    "url": "https://www.patreon.com/feross"
+-                },
+-                {
+-                    "type": "consulting",
+-                    "url": "https://feross.org/support"
+-                }
+-            ]
+-        },
+         "node_modules/batch": {
+             "version": "0.6.1",
+             "license": "MIT"
+@@ -5900,34 +5869,6 @@
+                 "node-int64": "^0.4.0"
+             }
+         },
+-        "node_modules/buffer": {
+-            "version": "6.0.3",
+-            "resolved": "https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz",
+-            "integrity": "sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==",
+-            "funding": [
+-                {
+-                    "type": "github",
+-                    "url": "https://github.com/sponsors/feross"
+-                },
+-                {
+-                    "type": "patreon",
+-                    "url": "https://www.patreon.com/feross"
+-                },
+-                {
+-                    "type": "consulting",
+-                    "url": "https://feross.org/support"
+-                }
+-            ],
+-            "dependencies": {
+-                "base64-js": "^1.3.1",
+-                "ieee754": "^1.2.1"
+-            }
+-        },
+-        "node_modules/buffer-equal-constant-time": {
+-            "version": "1.0.1",
+-            "resolved": "https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz",
+-            "integrity": "sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA=="
+-        },
+         "node_modules/buffer-from": {
+             "version": "1.1.2",
+             "license": "MIT"
+@@ -7359,14 +7300,6 @@
+             "dev": true,
+             "license": "BSD-3-Clause"
+         },
+-        "node_modules/ecdsa-sig-formatter": {
+-            "version": "1.0.11",
+-            "resolved": "https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz",
+-            "integrity": "sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==",
+-            "dependencies": {
+-                "safe-buffer": "^5.0.1"
+-            }
+-        },
+         "node_modules/ee-first": {
+             "version": "1.1.1",
+             "license": "MIT"
+@@ -9946,25 +9879,6 @@
+                 "node": ">=4"
+             }
+         },
+-        "node_modules/ieee754": {
+-            "version": "1.2.1",
+-            "resolved": "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz",
+-            "integrity": "sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==",
+-            "funding": [
+-                {
+-                    "type": "github",
+-                    "url": "https://github.com/sponsors/feross"
+-                },
+-                {
+-                    "type": "patreon",
+-                    "url": "https://www.patreon.com/feross"
+-                },
+-                {
+-                    "type": "consulting",
+-                    "url": "https://feross.org/support"
+-                }
+-            ]
+-        },
+         "node_modules/ignore": {
+             "version": "5.2.0",
+             "license": "MIT",
+@@ -14113,54 +14027,6 @@
+                 "node": ">=0.10.0"
+             }
+         },
+-        "node_modules/jsonwebtoken": {
+-            "version": "8.5.1",
+-            "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",
+-            "integrity": "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==",
+-            "dependencies": {
+-                "jws": "^3.2.2",
+-                "lodash.includes": "^4.3.0",
+-                "lodash.isboolean": "^3.0.3",
+-                "lodash.isinteger": "^4.0.4",
+-                "lodash.isnumber": "^3.0.3",
+-                "lodash.isplainobject": "^4.0.6",
+-                "lodash.isstring": "^4.0.1",
+-                "lodash.once": "^4.0.0",
+-                "ms": "^2.1.1",
+-                "semver": "^5.6.0"
+-            },
+-            "engines": {
+-                "node": ">=4",
+-                "npm": ">=1.4.28"
+-            }
+-        },
+-        "node_modules/jsonwebtoken/node_modules/jwa": {
+-            "version": "1.4.1",
+-            "resolved": "https://registry.npmjs.org/jwa/-/jwa-1.4.1.tgz",
+-            "integrity": "sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==",
+-            "dependencies": {
+-                "buffer-equal-constant-time": "1.0.1",
+-                "ecdsa-sig-formatter": "1.0.11",
+-                "safe-buffer": "^5.0.1"
+-            }
+-        },
+-        "node_modules/jsonwebtoken/node_modules/jws": {
+-            "version": "3.2.2",
+-            "resolved": "https://registry.npmjs.org/jws/-/jws-3.2.2.tgz",
+-            "integrity": "sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==",
+-            "dependencies": {
+-                "jwa": "^1.4.1",
+-                "safe-buffer": "^5.0.1"
+-            }
+-        },
+-        "node_modules/jsonwebtoken/node_modules/semver": {
+-            "version": "5.7.1",
+-            "resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",
+-            "integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==",
+-            "bin": {
+-                "semver": "bin/semver"
+-            }
+-        },
+         "node_modules/jsx-ast-utils": {
+             "version": "3.3.3",
+             "license": "MIT",
+@@ -14334,36 +14200,6 @@
+             "version": "4.0.8",
+             "license": "MIT"
+         },
+-        "node_modules/lodash.includes": {
+-            "version": "4.3.0",
+-            "resolved": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",
+-            "integrity": "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="
+-        },
+-        "node_modules/lodash.isboolean": {
+-            "version": "3.0.3",
+-            "resolved": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",
+-            "integrity": "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="
+-        },
+-        "node_modules/lodash.isinteger": {
+-            "version": "4.0.4",
+-            "resolved": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",
+-            "integrity": "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="
+-        },
+-        "node_modules/lodash.isnumber": {
+-            "version": "3.0.3",
+-            "resolved": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",
+-            "integrity": "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="
+-        },
+-        "node_modules/lodash.isplainobject": {
+-            "version": "4.0.6",
+-            "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",
+-            "integrity": "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="
+-        },
+-        "node_modules/lodash.isstring": {
+-            "version": "4.0.1",
+-            "resolved": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",
+-            "integrity": "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="
+-        },
+         "node_modules/lodash.memoize": {
+             "version": "4.1.2",
+             "license": "MIT"
+@@ -14372,11 +14208,6 @@
+             "version": "4.6.2",
+             "license": "MIT"
+         },
+-        "node_modules/lodash.once": {
+-            "version": "4.1.1",
+-            "resolved": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",
+-            "integrity": "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="
+-        },
+         "node_modules/lodash.sortby": {
+             "version": "4.7.0",
+             "license": "MIT"
+@@ -24945,15 +24776,6 @@
+         "@types/json5": {
+             "version": "0.0.29"
+         },
+-        "@types/jsonwebtoken": {
+-            "version": "8.5.9",
+-            "resolved": "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.5.9.tgz",
+-            "integrity": "sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==",
+-            "dev": true,
+-            "requires": {
+-                "@types/node": "*"
+-            }
+-        },
+         "@types/mime": {
+             "version": "3.0.1"
+         },
+@@ -25796,11 +25618,6 @@
+         "balanced-match": {
+             "version": "1.0.2"
+         },
+-        "base64-js": {
+-            "version": "1.5.1",
+-            "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz",
+-            "integrity": "sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA=="
+-        },
+         "batch": {
+             "version": "0.6.1"
+         },
+@@ -25944,20 +25761,6 @@
+                 "node-int64": "^0.4.0"
+             }
+         },
+-        "buffer": {
+-            "version": "6.0.3",
+-            "resolved": "https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz",
+-            "integrity": "sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==",
+-            "requires": {
+-                "base64-js": "^1.3.1",
+-                "ieee754": "^1.2.1"
+-            }
+-        },
+-        "buffer-equal-constant-time": {
+-            "version": "1.0.1",
+-            "resolved": "https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz",
+-            "integrity": "sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA=="
+-        },
+         "buffer-from": {
+             "version": "1.1.2"
+         },
+@@ -26795,14 +26598,6 @@
+             "version": "0.1.5",
+             "dev": true
+         },
+-        "ecdsa-sig-formatter": {
+-            "version": "1.0.11",
+-            "resolved": "https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz",
+-            "integrity": "sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==",
+-            "requires": {
+-                "safe-buffer": "^5.0.1"
+-            }
+-        },
+         "ee-first": {
+             "version": "1.1.1"
+         },
+@@ -28358,11 +28153,6 @@
+                 "harmony-reflect": "^1.4.6"
+             }
+         },
+-        "ieee754": {
+-            "version": "1.2.1",
+-            "resolved": "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz",
+-            "integrity": "sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA=="
+-        },
+         "ignore": {
+             "version": "5.2.0"
+         },
+@@ -30936,49 +30726,6 @@
+         "jsonpointer": {
+             "version": "5.0.1"
+         },
+-        "jsonwebtoken": {
+-            "version": "8.5.1",
+-            "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",
+-            "integrity": "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==",
+-            "requires": {
+-                "jws": "^3.2.2",
+-                "lodash.includes": "^4.3.0",
+-                "lodash.isboolean": "^3.0.3",
+-                "lodash.isinteger": "^4.0.4",
+-                "lodash.isnumber": "^3.0.3",
+-                "lodash.isplainobject": "^4.0.6",
+-                "lodash.isstring": "^4.0.1",
+-                "lodash.once": "^4.0.0",
+-                "ms": "^2.1.1",
+-                "semver": "^5.6.0"
+-            },
+-            "dependencies": {
+-                "jwa": {
+-                    "version": "1.4.1",
+-                    "resolved": "https://registry.npmjs.org/jwa/-/jwa-1.4.1.tgz",
+-                    "integrity": "sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==",
+-                    "requires": {
+-                        "buffer-equal-constant-time": "1.0.1",
+-                        "ecdsa-sig-formatter": "1.0.11",
+-                        "safe-buffer": "^5.0.1"
+-                    }
+-                },
+-                "jws": {
+-                    "version": "3.2.2",
+-                    "resolved": "https://registry.npmjs.org/jws/-/jws-3.2.2.tgz",
+-                    "integrity": "sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==",
+-                    "requires": {
+-                        "jwa": "^1.4.1",
+-                        "safe-buffer": "^5.0.1"
+-                    }
+-                },
+-                "semver": {
+-                    "version": "5.7.1",
+-                    "resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",
+-                    "integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
+-                }
+-            }
+-        },
+         "jsx-ast-utils": {
+             "version": "3.3.3",
+             "requires": {
+@@ -31085,47 +30832,12 @@
+         "lodash.debounce": {
+             "version": "4.0.8"
+         },
+-        "lodash.includes": {
+-            "version": "4.3.0",
+-            "resolved": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",
+-            "integrity": "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="
+-        },
+-        "lodash.isboolean": {
+-            "version": "3.0.3",
+-            "resolved": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",
+-            "integrity": "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="
+-        },
+-        "lodash.isinteger": {
+-            "version": "4.0.4",
+-            "resolved": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",
+-            "integrity": "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="
+-        },
+-        "lodash.isnumber": {
+-            "version": "3.0.3",
+-            "resolved": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",
+-            "integrity": "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="
+-        },
+-        "lodash.isplainobject": {
+-            "version": "4.0.6",
+-            "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",
+-            "integrity": "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="
+-        },
+-        "lodash.isstring": {
+-            "version": "4.0.1",
+-            "resolved": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",
+-            "integrity": "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="
+-        },
+         "lodash.memoize": {
+             "version": "4.1.2"
+         },
+         "lodash.merge": {
+             "version": "4.6.2"
+         },
+-        "lodash.once": {
+-            "version": "4.1.1",
+-            "resolved": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",
+-            "integrity": "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="
+-        },
+         "lodash.sortby": {
+             "version": "4.7.0"
+         },
+diff --git a/package.json b/package.json
+index 2bd7729..4b41aa2 100644
+--- a/package.json
++++ b/package.json
+@@ -18,9 +18,7 @@
+     "private": true,
+     "dependencies": {
+         "@reduxjs/toolkit": "^1.8.5",
+-        "buffer": "^6.0.3",
+         "date-fns": "^2.29.3",
+-        "jsonwebtoken": "^8.5.1",
+         "react": "^18.2.0",
+         "react-dom": "^18.2.0",
+         "react-redux": "^8.0.4",
+@@ -38,7 +36,6 @@
+         "@types/eslint": "^8.4.6",
+         "@types/eslint-plugin-prettier": "^3.1.0",
+         "@types/jest": "^29.0.3",
+-        "@types/jsonwebtoken": "^8.5.9",
+         "@types/node": "^18.7.23",
+         "@types/prettier": "^2.7.0",
+         "@types/react": "^18.0.21",
+diff --git a/public.key b/public.key
+deleted file mode 100644
+index a83beb5..0000000
+--- a/public.key
++++ /dev/null
+@@ -1,9 +0,0 @@
+------BEGIN PUBLIC KEY-----
+-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy6E9LX58u52FxQb+dyJS
+-dUdI7TPWCPvLiuN1atcJVrlNJ3fcQeYKwyhkzHTLxpWZXCrhhU9+k+kv/NtbgLiL
+-IynKcWxwKyIxbuDAKDR1bjs5JqBzz7nLkogZ8W1TIomtFRqLJE1v3mtvy1yI9tww
+-h9abLBR68WW8oBIF63J4grYWFagB24vggBZUQ+++wgxXIKjoUXIBCkDfw6NkBndz
+-fupDCXFWJG6lnGvgj2u55j5I7kPUusbAvC4BIr272RrPSrtpQkJBAjBlzyFbTr4a
+-N07X2xnkbmyJRrVs7Mu5l5N1tK5F9+SJzUA7WCPC15v/SrEJBZxtGLKlOn9nasiZ
+-pQIDAQAB
+------END PUBLIC KEY-----
+diff --git a/src/App.tsx b/src/App.tsx
+index aa56c05..4d416cd 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -18,7 +18,6 @@ const App = (): JSX.Element => {
+     const isConnected = useAppSelector((state) => {
+         return state.socket.isConnected;
+     });
+-
+     useEffect(() => {
+         if (!isConnected && !isEstablishingConnection) {
+             dispatch(startConnecting());
+@@ -27,8 +26,8 @@ const App = (): JSX.Element => {
+     return (
+         <BrowserRouter>
+             <Routes>
+-                <Route element={<Chat />} path="/" />
+-                <Route element={<Login />} path="/login" />
++                <Route element={<Login />} path="/" />
++                <Route element={<Chat />} path="/chat" />
+                 <Route element={<NotFound />} path="*" />
+             </Routes>
+         </BrowserRouter>
+diff --git a/src/Components/MessageWrap/MessageWrap.module.scss b/src/Components/MessageWrap/MessageWrap.module.scss
+index 1e60f77..8cc2e54 100644
+--- a/src/Components/MessageWrap/MessageWrap.module.scss
++++ b/src/Components/MessageWrap/MessageWrap.module.scss
+@@ -21,12 +21,12 @@
+     top: -1.8rem;
+ }
+ 
+-.ownUsername {
++.jsFe {
+     justify-content: flex-end;
+     float: right;
+     clear: both;
+ }
+-.username {
++.jsFs {
+     justify-content: flex-start;
+     float: left;
+     clear: both;
+diff --git a/src/Components/MessageWrap/MessageWrap.tsx b/src/Components/MessageWrap/MessageWrap.tsx
+index e97da69..c500cca 100644
+--- a/src/Components/MessageWrap/MessageWrap.tsx
++++ b/src/Components/MessageWrap/MessageWrap.tsx
+@@ -1,5 +1,3 @@
+-import { parseISO } from 'date-fns';
+-import format from 'date-fns/format';
+ import React from 'react';
+ 
+ import styles from './MessageWrap.module.scss';
+@@ -10,17 +8,21 @@ type Props = {
+     author: string;
+     isOwnUsername: boolean;
+ };
+-const MessageWrap = React.memo(function MessageWrap({
++const MessageWrap = ({
+     content,
+     timestamp,
+     author,
+     isOwnUsername,
+-}: Props) {
+-    const time = format(parseISO(timestamp), 'hh:mm');
++}: Props): JSX.Element => {
++    const date = new Date(timestamp);
++    const hours = date.getHours();
++    const minutes = date.getMinutes();
++    const time = `${hours}:${minutes}`;
++
+     return (
+         <div
+             className={`${styles.messageWrap} ${
+-                isOwnUsername ? styles.ownUsername : styles.username
++                isOwnUsername ? styles.jsFe : styles.jsFs
+             }`}
+         >
+             <div className={styles.author}>{author}</div>
+@@ -28,6 +30,7 @@ const MessageWrap = React.memo(function MessageWrap({
+             <p>{content}</p>
+         </div>
+     );
+-});
++};
+ 
+ export default MessageWrap;
++export const MemoizedMessageWrap = React.memo(MessageWrap);
+diff --git a/src/Components/MessagesBox/MessagesBox.tsx b/src/Components/MessagesBox/MessagesBox.tsx
+index d986f10..3b55bf8 100644
+--- a/src/Components/MessagesBox/MessagesBox.tsx
++++ b/src/Components/MessagesBox/MessagesBox.tsx
+@@ -1,36 +1,28 @@
+-import { useMemo } from 'react';
+-
+ import styles from './MessageBox.module.scss';
+ 
+-import MessageWrap from 'Components/MessageWrap/MessageWrap';
++import { MemoizedMessageWrap } from 'Components/MessageWrap/MessageWrap';
+ import { useAppSelector } from 'state/hooks';
+ 
+ const MessagesBox = (): JSX.Element => {
+     const messages = useAppSelector((state) => state.chat.messages);
+     const { username: isOwnUsername } = useAppSelector((state) => state.user);
+-    const newMessages = useMemo(() => {
+-        let author = '';
+-        return messages.map((message) => {
+-            if (message.author === author) {
+-                return {
+-                    ...message,
+-                    author: '',
+-                    isOwnUsername: message.author === isOwnUsername,
+-                };
+-            }
+-            author = message.author;
+-
++    let author = '';
++    const newMessages = messages.map((message) => {
++        if (message.author === author) {
+             return {
+                 ...message,
++                author: '',
+                 isOwnUsername: message.author === isOwnUsername,
+             };
+-        });
+-    }, [messages, isOwnUsername]);
++        }
++        author = message.author;
++
++        return { ...message, isOwnUsername: message.author === isOwnUsername };
++    });
+     return (
+         <div className={styles.messageBox}>
+-            {/* tutaj też powiniennem używać useMemo ? */}
+             {newMessages.map((message) => (
+-                <MessageWrap key={message.id} {...message} />
++                <MemoizedMessageWrap key={message.id} {...message} />
+             ))}
+         </div>
+     );
+diff --git a/src/Components/Username/Username.module.scss b/src/Components/Username/Username.module.scss
+index efbf57a..03ea98b 100644
+--- a/src/Components/Username/Username.module.scss
++++ b/src/Components/Username/Username.module.scss
+@@ -1,3 +1,3 @@
+-.ownUsername {
++.active {
+     color: blue;
+ }
+diff --git a/src/Components/Username/Username.tsx b/src/Components/Username/Username.tsx
+index c4980d7..8e6bc55 100644
+--- a/src/Components/Username/Username.tsx
++++ b/src/Components/Username/Username.tsx
+@@ -6,14 +6,12 @@ type Props = {
+     name: string;
+     isOwnUsername: boolean;
+ };
+-const Username = React.memo(function Username({
+-    name,
+-    isOwnUsername = false,
+-}: Props) {
++const Username = ({ name, isOwnUsername = false }: Props): JSX.Element => {
+     return (
+-        <div className={isOwnUsername ? styles.ownUsername : ''}>
++        <div className={isOwnUsername ? styles.active : ''}>
+             <h2>{name}</h2>
+         </div>
+     );
+-});
+-export default Username;
++};
++
++export const MemoizedUsername = React.memo(Username);
+diff --git a/src/Components/UsersBox/UsersBox.tsx b/src/Components/UsersBox/UsersBox.tsx
+index 1f117ea..b9d4674 100644
+--- a/src/Components/UsersBox/UsersBox.tsx
++++ b/src/Components/UsersBox/UsersBox.tsx
+@@ -1,6 +1,6 @@
+ import styles from './UserBox.module.scss';
+ 
+-import Username from 'Components/Username/Username';
++import { MemoizedUsername } from 'Components/Username/Username';
+ import { useAppSelector } from 'state/hooks';
+ 
+ const UsersBox = (): JSX.Element => {
+@@ -9,11 +9,11 @@ const UsersBox = (): JSX.Element => {
+ 
+     return (
+         <div className={styles.usersBox}>
+-            <Username isOwnUsername name={ownUsername} />
++            <MemoizedUsername isOwnUsername name={ownUsername} />
+             {usernames.map(
+                 (username) =>
+                     username !== ownUsername && (
+-                        <Username
++                        <MemoizedUsername
+                             key={username}
+                             isOwnUsername={false}
+                             name={username}
+diff --git a/src/Pages/Chat/Chat.module.scss b/src/Pages/Chat/Chat.module.scss
+index 2cc7cda..5a49203 100644
+--- a/src/Pages/Chat/Chat.module.scss
++++ b/src/Pages/Chat/Chat.module.scss
+@@ -1,4 +1,4 @@
+-@import "utils/scss/variables";
++@import "utilities/variables.scss";
+ 
+ .chat {
+     display: flex;
+diff --git a/src/Pages/Chat/Chat.tsx b/src/Pages/Chat/Chat.tsx
+index ad79c24..135e8b7 100644
+--- a/src/Pages/Chat/Chat.tsx
++++ b/src/Pages/Chat/Chat.tsx
+@@ -1,85 +1,10 @@
+-import { useEffect } from 'react';
+-import { useNavigate } from 'react-router-dom';
+-
+ import styles from './Chat.module.scss';
+ 
+ import MessageInput from 'Components/MessageInput/MessageInput';
+ import MessagesBox from 'Components/MessagesBox/MessagesBox';
+ import UsersBox from 'Components/UsersBox/UsersBox';
+-import {
+-    useSetUsernameMutation,
+-    useVerifyTokenQuery,
+-} from 'state/features/api/api';
+-import { loginReducer } from 'state/features/user/userSlice';
+-import { useAppDispatch, useAppSelector } from 'state/hooks';
+-// import { socket } from 'state/service';
+-import { LoginEvents } from 'types/userType';
+ 
+ const Chat = (): JSX.Element => {
+-    // const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+-    // const navigate = useNavigate();
+-    // const getToken = localStorage.getItem('token') || '';
+-    // const getToken = localStorage.getItem('token') || null;
+-    // if (getToken) {
+-    //     const token = JSON.parse(getToken) as string;
+-    //     console.log('token w chat ', token);
+-    //     const { currentData, isFetching, isLoading } = useVerifyTokenQuery({
+-    //         token,
+-    //     });
+-    //     console.log({ currentData, isFetching, isLoading });
+-    // }
+-
+-    // const [setUsername, response] = useSetUsernameMutation({
+-    //     fixedCacheKey: 'shared-set-username',
+-    // });
+-    // const dispatch = useAppDispatch();
+-
+-    // console.log('dziwne', currentData, isFetching, isLoading);
+-
+-    // useEffect(() => {
+-    //     console.log('w use effect', currentData);
+-    //     if (currentData) {
+-    //         setUsername({ username: currentData.username, socketID: socket.id })
+-    //             .unwrap()
+-    //             .then((resp) => {
+-    //                 console.log('response w useEfect', resp, response);
+-    //                 dispatch(
+-    //                     loginReducer({
+-    //                         username: currentData.username,
+-    //                         setIsLoggedIn: LoginEvents.LOG_IN,
+-    //                         token: resp.token,
+-    //                     }),
+-    //                 );
+-    //             })
+-    //             .catch((error) => {
+-    //                 console.log(error);
+-    //             });
+-    //     }
+-    // }, [currentData]);
+-
+-    // if (currentData) {
+-    //     setUsername({ username: currentData.username, socketID: socket.id })
+-    //         .unwrap()
+-    //         .then((resp) => {
+-    //             dispatch(
+-    //                 loginReducer({
+-    //                     username: currentData.username,
+-    //                     setIsLoggedIn: LoginEvents.LOG_IN,
+-    //                     token: resp.token,
+-    //                 }),
+-    //             );
+-    //         })
+-    //         .catch((error) => {
+-    //             console.log(error);
+-    //         });
+-    // }
+-
+-    // console.log(wynik);
+-    // useEffect(() => {
+-    //     if (isLoggedIn === 0) {
+-    //         navigate('/login');
+-    //     }
+-    // }, [isLoggedIn, navigate]);
+     return (
+         <div className={styles.chat}>
+             <div className={styles.chatWrap}>
+diff --git a/src/Pages/Login/Login.tsx b/src/Pages/Login/Login.tsx
+index b652c42..e4b22d9 100644
+--- a/src/Pages/Login/Login.tsx
++++ b/src/Pages/Login/Login.tsx
+@@ -1,20 +1,15 @@
+-import React, { useState, ChangeEvent } from 'react';
++import React, { useState, ChangeEvent, useEffect } from 'react';
+ import { useNavigate } from 'react-router-dom';
+ 
+ import styles from './Login.module.scss';
+ 
+-import { useSetUsernameMutation } from 'state/features/api/api';
+-import { loginReducer } from 'state/features/user/userSlice';
++import { setUsername } from 'state/features/user/userSlice';
+ import { useAppDispatch, useAppSelector } from 'state/hooks';
+-import { socket } from 'state/service';
+-import { LoginEvents } from 'types/userType';
+ 
+ const Login = (): JSX.Element => {
+     const [value, setValue] = useState<string>('');
+-    const [setUsername, response] = useSetUsernameMutation({
+-        fixedCacheKey: 'shared-set-username',
+-    });
+-    const { errorMessage } = useAppSelector((state) => state.user);
++    const { isUsernameFailure } = useAppSelector((state) => state.user.error);
++    const { username } = useAppSelector((state) => state.user);
+     const navigate = useNavigate();
+     const dispatch = useAppDispatch();
+ 
+@@ -23,52 +18,29 @@ const Login = (): JSX.Element => {
+     }: ChangeEvent<HTMLInputElement>): void => {
+         setValue(newValue);
+     };
++
+     const handleSubmitClick = (): void => {
+-        setUsername({ username: value, socketID: socket.id })
+-            .unwrap()
+-            .then((resp) => {
+-                dispatch(
+-                    loginReducer({
+-                        username: value,
+-                        setIsLoggedIn: LoginEvents.LOG_IN,
+-                        token: resp.token,
+-                        userId: resp.userId,
+-                    }),
+-                );
+-                console.log('!!!!!!!!!!!!!!!!!', resp);
+-                localStorage.setItem('token', JSON.stringify(resp.token)); // todo `token ${value}`?
+-                navigate('/');
+-            })
+-            .catch(
+-                (error: {
+-                    data: string;
+-                    error: string;
+-                    originalStatus: number;
+-                    status: string;
+-                }) => {
+-                    dispatch(
+-                        loginReducer({
+-                            username: value,
+-                            errorMessage: error.data,
+-                            setIsLoggedIn: LoginEvents.LOG_OUT,
+-                            token: null,
+-                            userId: null,
+-                        }),
+-                    );
+-                },
+-            );
++        dispatch(
++            setUsername({
++                username: value,
++            }),
++        );
+     };
++    useEffect(() => {
++        if (isUsernameFailure === false) {
++            navigate('/chat');
++        }
++    }, [isUsernameFailure, dispatch, navigate]);
+ 
+     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+         e.preventDefault();
+         handleSubmitClick();
+     };
+-
+     return (
+         <div className={styles.login}>
+-            {errorMessage ? (
++            {isUsernameFailure === true ? (
+                 <div>
+-                    <p>{errorMessage}</p>
++                    <p>{username} already exist</p>
+                 </div>
+             ) : (
+                 ''
+@@ -93,12 +65,8 @@ const Login = (): JSX.Element => {
+                     />
+                 </label>
+ 
+-                <button
+-                    disabled={response.isLoading}
+-                    onClick={handleSubmitClick}
+-                    type="button"
+-                >
+-                    {response.isLoading ? 'loading' : 'Submit'}
++                <button onClick={handleSubmitClick} type="button">
++                    Submit
+                 </button>
+             </form>
+         </div>
+diff --git a/src/enums/ChatEvents.ts b/src/enums/ChatEvents.ts
+new file mode 100644
+index 0000000..030fb40
+--- /dev/null
++++ b/src/enums/ChatEvents.ts
+@@ -0,0 +1,10 @@
++export enum ChatEvents {
++    NEW_MESSAGE = 'new-message',
++    NEW_MESSAGE_UPDATE = 'new-message-update',
++    NEW_MESSAGE_USERNAME_NOT_REGISTERED = 'new-message-username-not-registered',
++    SET_USERNAME = 'set-username',
++    SET_USERNAME_SUCCESS = 'set-username-success',
++    SET_USERNAME_FAILURE = 'set-username-failure',
++    UPDATE_USERS = 'update-users',
++    USER_DISCONNECTED = 'user-disconnected',
++}
+diff --git a/src/index.tsx b/src/index.tsx
+index c9e898b..75bfc97 100644
+--- a/src/index.tsx
++++ b/src/index.tsx
+@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
+ 
+ import App from './App';
+ import { store } from './state/store';
+-
+ // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+ const root = ReactDOM.createRoot(document.getElementById('root')!);
+ root.render(
+diff --git a/src/state/features/api/api.ts b/src/state/features/api/api.ts
+deleted file mode 100644
+index 42dd5d9..0000000
+--- a/src/state/features/api/api.ts
++++ /dev/null
+@@ -1,38 +0,0 @@
+-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+-
+-import {
+-    SetUsernameResponse,
+-    SetUsernameRequest,
+-    VerifyTokenResponse,
+-    VerifyTokenRequest,
+-} from 'types/apiTypes';
+-// "one API slice per base URL" as a rule of thumb.
+-export const api = createApi({
+-    reducerPath: 'api',
+-    baseQuery: fetchBaseQuery({
+-        baseUrl: 'http://localhost:4000',
+-    }),
+-    endpoints: (builder) => ({
+-        setUsername: builder.mutation<SetUsernameResponse, SetUsernameRequest>({
+-            query: (payload) => ({
+-                url: '/set-username',
+-                method: 'POST',
+-                body: payload,
+-                headers: {
+-                    'Content-type': 'application/json; charset=UTF-8',
+-                },
+-            }),
+-        }),
+-        verifyToken: builder.query<VerifyTokenResponse, VerifyTokenRequest>({
+-            query: (payload) => ({
+-                url: '/verify-token',
+-                method: 'POST',
+-                body: payload,
+-                headers: {
+-                    'Content-type': 'application/json; charset=UTF-8',
+-                },
+-            }),
+-        }),
+-    }),
+-});
+-export const { useSetUsernameMutation, useVerifyTokenQuery } = api;
+diff --git a/src/state/features/chat/chatSlice.ts b/src/state/features/chat/chatSlice.ts
+index 8e496ab..6ef5f7b 100644
+--- a/src/state/features/chat/chatSlice.ts
++++ b/src/state/features/chat/chatSlice.ts
+@@ -38,7 +38,7 @@ export const chatSlice = createSlice({
+             state.messages = action.payload.messages;
+             state.usernames = action.payload.usernames;
+         },
+-        updateUsernames: (
++        updateUsers: (
+             state,
+             action: PayloadAction<{
+                 users: string[];
+@@ -60,7 +60,7 @@ export const chatSlice = createSlice({
+ export const {
+     newMessageUpdate,
+     newMessage,
+-    updateUsernames,
++    updateUsers,
+     userDisconnected,
+     setUsernameSuccess,
+ } = chatSlice.actions;
+diff --git a/src/state/features/user/userSlice.ts b/src/state/features/user/userSlice.ts
+index d06a634..ea6d070 100644
+--- a/src/state/features/user/userSlice.ts
++++ b/src/state/features/user/userSlice.ts
+@@ -1,36 +1,51 @@
+ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+ 
+-import { UserState, LoginEvents } from 'types/userType';
++import { UserState } from 'types/userType';
+ 
+ const initialState: UserState = {
+     username: '',
+-    errorMessage: null,
+-    isLoggedIn: LoginEvents.LOG_OUT,
+-    token: null,
+-    userID: null,
++    isLoggedIn: false,
++    error: { isUsernameFailure: null },
+ };
+ 
+ export const userSlice = createSlice({
+     name: 'user',
+     initialState,
+     reducers: {
+-        loginReducer: (
++        setUsername: (
+             state,
+             action: PayloadAction<{
+                 username: string;
+-                setIsLoggedIn: LoginEvents;
+-                errorMessage?: string;
+-                token: string | null;
+-                userId: string | null;
+             }>,
+         ) => {
+             state.username = action.payload.username;
+-            state.errorMessage = action.payload.errorMessage;
+-            state.isLoggedIn = action.payload.setIsLoggedIn;
+-            state.token = action.payload.token;
+-            state.userID = action.payload.userId;
++            state.error = {
++                ...state.error,
++                isUsernameFailure: null,
++            };
++        },
++        setIsLogin: (
++            state,
++            action: PayloadAction<{
++                isLogin: boolean;
++                isUsernameFailure: boolean;
++            }>,
++        ) => {
++            state.isLoggedIn = action.payload.isLogin;
++            state.error = {
++                ...state.error,
++                isUsernameFailure: action.payload.isUsernameFailure,
++            };
++        },
++        setUsernameFailure: (state) => {
++            state.error = {
++                ...state.error,
++                isUsernameFailure: true,
++            };
+         },
+     },
+ });
++
++export const { setUsername, setIsLogin, setUsernameFailure } =
++    userSlice.actions;
+ export default userSlice.reducer;
+-export const { loginReducer } = userSlice.actions;
+diff --git a/src/state/service.ts b/src/state/service.ts
+index 5478684..e99add9 100644
+--- a/src/state/service.ts
++++ b/src/state/service.ts
+@@ -1,50 +1,7 @@
+-/* eslint-disable no-console */
+ import { io, Socket } from 'socket.io-client';
+ 
+-import { api } from './features/api/api';
+-import { store } from './store';
+-
+-// import { ChatEvents } from 'types/chatType';
+-
+ const createSocket = (): Socket => {
+-    const socket: Socket = io('localhost:4000', {
+-        reconnection: true,
+-        reconnectionAttempts: 10,
+-        reconnectionDelay: 5000,
+-        timeout: 5000,
+-        autoConnect: true,
+-    });
+-
++    const socket: Socket = io('localhost:4000', {});
+     return socket;
+ };
+-
+ export const socket = createSocket();
+-
+-socket.on('connect', () => {
+-    console.log('connected to the server.');
+-});
+-
+-// Fired upon a successful reconnection
+-socket.io.on('reconnect', async () => {
+-    console.log('successful reconnect attempt ');
+-    const getToken = localStorage.getItem('token');
+-
+-    if (getToken) {
+-        const token = JSON.parse(getToken) as string;
+-        const result = api.endpoints.verifyToken.initiate({ token });
+-        const wynik = await store.dispatch(result);
+-        console.log('wynik', wynik);
+-    }
+-    // console.log('zobacz to ', token);
+-    // socket.on('testuje', (odebralem) => {
+-    //     console.log('co odebralem ?', odebralem);
+-    // });
+-});
+-// Fired upon an attempt to reconnect.
+-// socket.io.on('reconnect_attempt', (attempt) => {
+-//     console.log('reconnect_attempt ', attempt);
+-// });
+-// // Fired when couldn't reconnect within reconnectionAttempts.
+-// socket.io.on('reconnect_failed', () => {
+-//     console.log('reconnect_failed');
+-// });
+diff --git a/src/state/store.ts b/src/state/store.ts
+index 16ba1d0..ac1a3ca 100644
+--- a/src/state/store.ts
++++ b/src/state/store.ts
+@@ -2,49 +2,38 @@ import { configureStore } from '@reduxjs/toolkit';
+ import { Middleware, Action, combineReducers } from 'redux';
+ import logger from 'redux-logger';
+ 
+-import { api } from './features/api/api';
+ import chatReducer, {
+     newMessage,
+     newMessageUpdate,
+     setUsernameSuccess,
+-    updateUsernames,
++    updateUsers,
+     userDisconnected,
+ } from './features/chat/chatSlice';
+ import socketReducer, {
+     startConnecting,
+     connectionEstablished,
+ } from './features/socket/socketSlice';
+-import userReducer from './features/user/userSlice';
++import userReducer, {
++    setUsername,
++    setIsLogin,
++    setUsernameFailure,
++} from './features/user/userSlice';
+ import { socket } from './service';
+ 
+-import { ChatEvents, ChatState, Message } from 'types/chatType';
++import { ChatEvents } from 'enums/ChatEvents';
++import { Message, ChatState } from 'types/chatType';
+ 
+-interface ActionPayload extends Action {
+-    payload: ChatState;
+-}
+-// function verifyToken() {
+-//     const getToken = localStorage.getItem('token');
+-//     const token = JSON.parse(getToken) as string;
+-
+-//     const result = api.endpoints.verifyToken.initiate({ token });
++const rootReducer = combineReducers({
++    socket: socketReducer,
++    user: userReducer,
++    chat: chatReducer,
++});
++export type RootState = ReturnType<typeof rootReducer>;
+ 
+-//     return result;
+-// }
+ const messagesMiddleware: Middleware<unknown, RootState> =
+-    (chatStore) => (next) => (action: ActionPayload) => {
+-        // Fired upon a successful reconnection
+-        // socket.io.on('reconnect', () => {
+-        //     console.log('successful reconnect attempt ');
+-
+-        //     chatStore.dispatch(verifyToken());
+-        // });
++    (chatStore) => (next) => (action: Action) => {
+         const isConnectionEstablished =
+             socket && chatStore.getState().socket.isConnected;
+-        if (action.type === 'api/executeMutation/fulfilled') {
+-            // to działa ale to jest okej że tak używam spread operator? reducer przyjmuje z payload usernames i messages, payload zawiera jeszcze token, co sie z nim dzieje w tym przypadku?
+-            chatStore.dispatch(setUsernameSuccess({ ...action.payload }));
+-        }
+-
+         if (startConnecting.match(action)) {
+             socket.on('connect', () => {
+                 chatStore.dispatch(connectionEstablished());
+@@ -53,9 +42,28 @@ const messagesMiddleware: Middleware<unknown, RootState> =
+             socket.on(ChatEvents.NEW_MESSAGE_UPDATE, (message: Message) => {
+                 chatStore.dispatch(newMessageUpdate({ message }));
+             });
+-
+-            socket.on(ChatEvents.UPDATE_USERNAMES, (users: string[]) => {
+-                chatStore.dispatch(updateUsernames({ users }));
++            socket.on(ChatEvents.SET_USERNAME_FAILURE, () => {
++                chatStore.dispatch(setUsernameFailure());
++            });
++            socket.on(ChatEvents.NEW_MESSAGE_USERNAME_NOT_REGISTERED, () => {
++                socket.disconnect();
++            });
++            socket.on(
++                ChatEvents.SET_USERNAME_SUCCESS,
++                ({ messages, usernames }: ChatState) => {
++                    chatStore.dispatch(
++                        setIsLogin({
++                            isLogin: true,
++                            isUsernameFailure: false,
++                        }),
++                    );
++                    chatStore.dispatch(
++                        setUsernameSuccess({ messages, usernames }),
++                    );
++                },
++            );
++            socket.on(ChatEvents.UPDATE_USERS, (users: string[]) => {
++                chatStore.dispatch(updateUsers({ users }));
+             });
+             socket.on(ChatEvents.USER_DISCONNECTED, (users: string[]) => {
+                 chatStore.dispatch(userDisconnected({ users }));
+@@ -65,25 +73,15 @@ const messagesMiddleware: Middleware<unknown, RootState> =
+         if (newMessage.match(action) && isConnectionEstablished) {
+             socket.emit(ChatEvents.NEW_MESSAGE, action.payload.content);
+         }
++        if (setUsername.match(action)) {
++            socket.emit(ChatEvents.SET_USERNAME, action.payload.username);
++        }
+ 
+         return next(action);
+     };
+-
+-const rootReducer = combineReducers({
+-    socket: socketReducer,
+-    chat: chatReducer,
+-    user: userReducer,
+-    [api.reducerPath]: api.reducer,
+-});
+-
+ export const store = configureStore({
+     reducer: rootReducer,
+     middleware: (getDefaultMiddleware) =>
+-        getDefaultMiddleware().concat([
+-            messagesMiddleware,
+-            logger,
+-            api.middleware,
+-        ]),
++        getDefaultMiddleware().concat([messagesMiddleware, logger]),
+ });
+-export type RootState = ReturnType<typeof rootReducer>;
+ export type AppDispatch = typeof store.dispatch;
+diff --git a/src/types/apiTypes.ts b/src/types/apiTypes.ts
+deleted file mode 100644
+index cb600a7..0000000
+--- a/src/types/apiTypes.ts
++++ /dev/null
+@@ -1,25 +0,0 @@
+-import { ChatState } from './chatType';
+-
+-export type SetUsernameResponse = ChatState & {
+-    token: string;
+-    message: string[];
+-    usernames: string[];
+-    userId: string;
+-};
+-export type SetUsernameRequest = {
+-    username: string;
+-    socketID: string;
+-};
+-export type VerifyTokenResponse =
+-    | {
+-          username: string;
+-          iat: number;
+-          exp: number;
+-      }
+-    | {
+-          name: string;
+-          message: string;
+-      };
+-export type VerifyTokenRequest = {
+-    token: string;
+-};
+diff --git a/src/types/chatType.ts b/src/types/chatType.ts
+index 2b78e5a..a2beb92 100644
+--- a/src/types/chatType.ts
++++ b/src/types/chatType.ts
+@@ -1,17 +1,10 @@
+-export interface ChatState {
++export type ChatState = {
+     messages: Message[];
+     usernames: string[];
+-}
++};
+ export type Message = {
+     readonly content: string;
+     readonly timestamp: string;
+     author: string;
+     readonly id: string;
+ };
+-export enum ChatEvents {
+-    NEW_MESSAGE = 'new-message',
+-    NEW_MESSAGE_UPDATE = 'new-message-update',
+-    UPDATE_USERNAMES = 'update-usernames',
+-    USER_DISCONNECTED = 'user-disconnected',
+-    USER_RECONNECT = 'user-reconnect',
+-}
+diff --git a/src/types/userType.ts b/src/types/userType.ts
+index 4612472..0d7f399 100644
+--- a/src/types/userType.ts
++++ b/src/types/userType.ts
+@@ -1,15 +1,8 @@
+ export type UserState = {
+     username: string;
+-    errorMessage?: null | string;
+-    isLoggedIn: LoginEvents;
+-    token: string | null;
+-    userID: string | null;
++    isLoggedIn: boolean;
++    error: Error;
++};
++type Error = {
++    isUsernameFailure: boolean | null;
+ };
+-
+-// todo mozna usunac?
+-// export type Response = ChatState;
+-
+-export enum LoginEvents {
+-    LOG_IN = 1,
+-    LOG_OUT = 0,
+-}
+diff --git a/src/types/usersType.ts b/src/types/usersType.ts
+new file mode 100644
+index 0000000..c9b9d95
+--- /dev/null
++++ b/src/types/usersType.ts
+@@ -0,0 +1,5 @@
++export type Users = { [key: string]: string };
++
++export type UsersStare = {
++    users: [];
++};
+diff --git a/src/utils/scss/variables.scss b/src/utilities/variables.scss
+similarity index 100%
+rename from src/utils/scss/variables.scss
+rename to src/utilities/variables.scss
