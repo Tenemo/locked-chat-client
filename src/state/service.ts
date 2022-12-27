@@ -2,7 +2,7 @@
 import { io, Socket } from 'socket.io-client';
 
 import { api } from './features/api/api';
-import { store } from './store';
+// import { store } from './store';
 
 // import { ChatEvents } from 'types/chatType';
 
@@ -25,21 +25,21 @@ socket.on('connect', () => {
 });
 
 // Fired upon a successful reconnection
-socket.io.on('reconnect', async () => {
-    console.log('successful reconnect attempt ');
-    const getToken = localStorage.getItem('token');
+// socket.io.on('reconnect', async () => {
+//     console.log('successful reconnect attempt ');
+//     const getToken = localStorage.getItem('token');
 
-    if (getToken) {
-        const token = JSON.parse(getToken) as string;
-        const result = api.endpoints.verifyToken.initiate({ token });
-        const wynik = await store.dispatch(result);
-        console.log('wynik', wynik);
-    }
-    // console.log('zobacz to ', token);
-    // socket.on('testuje', (odebralem) => {
-    //     console.log('co odebralem ?', odebralem);
-    // });
-});
+//     if (getToken) {
+//         const token = JSON.parse(getToken) as string;
+//         const result = api.endpoints.verifyToken.initiate({ token });
+//         const wynik = await store.dispatch(result);
+//         console.log('wynik', wynik);
+//     }
+// console.log('zobacz to ', token);
+// socket.on('testuje', (odebralem) => {
+//     console.log('co odebralem ?', odebralem);
+// });
+// });
 // Fired upon an attempt to reconnect.
 // socket.io.on('reconnect_attempt', (attempt) => {
 //     console.log('reconnect_attempt ', attempt);
